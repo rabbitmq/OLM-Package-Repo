@@ -1,4 +1,4 @@
-# OoperatorLifeCyleManager-Package-Repo
+# OLM-Package-Repo-For-Cluster-Operator
 Scripts to generate OLM (Operator-LifeCycle-Manager) Bundles for our operators </br>
 
 This repo, will contains scripts to generate OLM Bundles starting from release.yaml files for our K8s operators to then be able to publish on OperatorHUB.</br>
