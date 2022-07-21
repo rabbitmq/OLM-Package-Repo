@@ -1,4 +1,4 @@
-# OLM-Package-Repo
+# OoperatorLifeCyleManager-Package-Repo
 Scripts to generate OLM (Operator-LifeCycle-Manager) Bundles for our operators </br>
 
 This repo, will contains scripts to generate OLM Bundles starting from release.yaml files for our K8s operators to then be able to publish on OperatorHUB.</br>
@@ -12,7 +12,7 @@ How to create, publish and test an OLM Bundle:</br>
 https://devopstales.github.io/home/oml/
 
 
-# Execute the script
+# How to use the script
 
 The script OLM-Package-Repo/generate_OLM/generate_OLM_cluster_operator/generate-olm-package.py will generate the OLM package needed to run the operator on respect the Operator Lifecycle management rule. <\br>
 
