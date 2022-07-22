@@ -7,5 +7,5 @@ LABEL operators.operatorframework.io.bundle.package.v1=rabbitmq-operator
 LABEL operators.operatorframework.io.bundle.channels.v1=stable
 LABEL operators.operatorframework.io.bundle.channel.default.v1=stable
 
-COPY ../../OLM/rabbitmq-cluster-operator/1.14.0/manifests /manifests/
-COPY ../../OLM/rabbitmq-cluster-operator/1.14.0/metadata /metadata/
+COPY manifests /manifests/
+COPY metadata /metadata/

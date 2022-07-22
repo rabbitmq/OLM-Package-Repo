@@ -20,12 +20,13 @@ metadata:
     description: "RabbitMQ Cluster Operator developed and maintained by the RabbitMQ team automates the provisioning, management, of RabbitMQ clusters running on Kubernetes. \n"
     containerImage: ""
     support: ""
-    capabilities: Basic Install
-    repository: ""
+    capabilities: Full Lifecycle
+    repository: https://github.com/rabbitmq/cluster-operator
 spec:
   displayName: RabbitMQ-cluster-operator
   description: |
     ## About the managed application
+    RabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol, MQ Telemetry Transport, and other protocols.
     ## About this Operator
     RabbitMQ Cluster Kubernetes Operator is developed and maintened by the VMware RabbitMQ team and provides a consistent and easy way to deploy RabbitMQ clusters to Kubernetes and run them, including "day two" (continuous) operations. RabbitMQ clusters deployed using the Operator can be used by applications running on Kubernetes or outside of Kubernetes.
     See: https://www.rabbitmq.com/kubernetes/operator/operator-overview.html for detailed information
@@ -37,20 +38,8 @@ spec:
   minKubeVersion: ""
   keywords: []
   maintainers:
-  - name: Daniele Palaia
-    email: dpalaia@vmware.com
-  - name: Connor Rogers
-    email: rconnor@vmware.com
-  - name: ' Chunyi Lyu'
-    email: clyu@vmware.com
-  - name: Aitor Alberto Perez Cedres
-    email: acedres@vmware.com
-  - name: Alex Blease
-    email: ablease@vmware.com
-  - name: Marcial Rosales
-    email: mrosales@vmware.com
-  - name: Mirah Gary
-    email: mgary@vmware.com
+  - name: VMware Tanzu
+    email: rabbitmq-platform@groups.vmware.com
   provider:
     name: VMware Tanzu
   labels: {}

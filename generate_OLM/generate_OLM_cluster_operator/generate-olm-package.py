@@ -42,12 +42,15 @@ os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./tmpmanifests/cluster-service-version.yaml " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./manifests_crds/crds.yaml " + rabbitmq_cluster_operator_dir_manifests)
 
-# Generate metadata/annotations and Dockerfile
-os.system("opm alpha bundle generate --directory " + rabbitmq_cluster_operator_dir_manifests + " --package rabbitmq-operator --channels stable --default stable")
-os.system("mv ./bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
-
 # Cleanup
 os.system("rm ./tmpmanifests/*")
+
+# Generate metadata/annotations and Dockerfile
+print(rabbitmq_cluster_operator_dir)
+os.chdir(rabbitmq_cluster_operator_dir)
+os.system("opm alpha bundle generate --directory ./manifests --package rabbitmq-operator --channels stable --default stable")
+
+
 
 
 
