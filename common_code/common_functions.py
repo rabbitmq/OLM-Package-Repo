@@ -1,4 +1,5 @@
 import os
+import fileinput
 
 # This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
 def create_overlay(release_file, kind, firstString, endString, file_generator, file_output):
@@ -33,3 +34,10 @@ def create_overlay(release_file, kind, firstString, endString, file_generator, f
 
             if line.find(kind) >= 0:
                 found = True
+
+# This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
+def replace_rabbitmq_cluster_operator_version_overlay(file_input, version):
+
+    with fileinput.FileInput(file_input, inplace=True, backup='.bak') as file:
+        for line in file:
+            print(line.replace("rabbitmq-cluster-operator.v*", "rabbitmq-cluster-operator.v"+version), end='')
