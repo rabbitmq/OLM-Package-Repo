@@ -6,6 +6,7 @@ sys.path.insert(1, './../../common_code')
 
 from common_functions import create_overlay
 from common_functions import replace_rabbitmq_cluster_operator_version_overlay
+from common_functions import replace_rabbitmq_cluster_operator_image
 
 if len(sys.argv) == 3:
    print('the script needs at least a cluster operator manifests a version and the output directory where store the Bundle as arguments in order to create the OLM structure')
@@ -40,11 +41,10 @@ os.system("ytt -f ./overlays/overlay-cluster-permission.yaml -f ./tmpmanifests/c
 os.system("cat ./generators/license.yaml > ./tmpmanifests/cluster-service-version.yaml")
 os.system("ytt -f ./overlays/overlay-deployment.yaml -f ./tmpmanifests/cluster-service-version-cluster-permission.yaml >> ./tmpmanifests/cluster-service-version.yaml")
 
-
-
 # Create the bundle structure
 rabbitmq_cluster_operator_dir=output_directory+"/" + version 
 rabbitmq_cluster_operator_dir_manifests=rabbitmq_cluster_operator_dir+"/manifests"
+replace_rabbitmq_cluster_operator_image("./tmpmanifests/cluster-service-version.yaml","rabbitmqoperator/cluster-operator:"+version, "dockerhub.io/rabbitmqoperator/cluster-operator:"+version)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./tmpmanifests/cluster-service-version.yaml " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./manifests_crds/crds.yaml " + rabbitmq_cluster_operator_dir_manifests)

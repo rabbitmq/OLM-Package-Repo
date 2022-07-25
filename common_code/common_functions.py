@@ -41,3 +41,10 @@ def replace_rabbitmq_cluster_operator_version_overlay(file_input, version):
     with fileinput.FileInput(file_input, inplace=True, backup='.bak') as file:
         for line in file:
             print(line.replace("rabbitmq-cluster-operator.v*", "rabbitmq-cluster-operator.v"+version), end='')
+
+def replace_rabbitmq_cluster_operator_image(file_input, pattern1, pattern2):
+
+    with fileinput.FileInput(file_input, inplace=True, backup='.bak') as file:
+        print("test")
+        for line in file:
+            print(line.replace(pattern1, pattern2), end='')
