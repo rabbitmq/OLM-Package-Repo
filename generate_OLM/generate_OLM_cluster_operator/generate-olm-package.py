@@ -38,15 +38,15 @@ replace_rabbitmq_cluster_operator_version_overlay("./overlays/overlay-deployment
 # Apply the overlay and generate the ClusterServiceVersion file from overlay
 os.system("ytt -f ./overlays/overlay-permission.yaml -f ./tmpmanifests/cluster-service-version-generator.yaml  > ./tmpmanifests/cluster-service-version-permission.yaml")
 os.system("ytt -f ./overlays/overlay-cluster-permission.yaml -f ./tmpmanifests/cluster-service-version-permission.yaml > ./tmpmanifests/cluster-service-version-cluster-permission.yaml")
-os.system("cat ./generators/license.yaml > ./tmpmanifests/cluster-service-version.yaml")
-os.system("ytt -f ./overlays/overlay-deployment.yaml -f ./tmpmanifests/cluster-service-version-cluster-permission.yaml >> ./tmpmanifests/cluster-service-version.yaml")
+os.system("cat ./generators/license.yaml > ./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
+os.system("ytt -f ./overlays/overlay-deployment.yaml -f ./tmpmanifests/cluster-service-version-cluster-permission.yaml >> ./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
 
 # Create the bundle structure
 rabbitmq_cluster_operator_dir=output_directory+"/" + version 
 rabbitmq_cluster_operator_dir_manifests=rabbitmq_cluster_operator_dir+"/manifests"
-replace_rabbitmq_cluster_operator_image("./tmpmanifests/cluster-service-version.yaml","rabbitmqoperator/cluster-operator:"+version, "dockerhub.io/rabbitmqoperator/cluster-operator:"+version)
+replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/cluster-operator:"+version, "dockerhub.io/rabbitmqoperator/cluster-operator:"+version)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
-os.system("cp ./tmpmanifests/cluster-service-version.yaml " + rabbitmq_cluster_operator_dir_manifests)
+os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./manifests_crds/crds.yaml " + rabbitmq_cluster_operator_dir_manifests)
 
 # Cleanup

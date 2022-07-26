@@ -13,29 +13,27 @@ metadata:
   namespace: placeholder
   annotations:
     alm-examples: '[{"apiVersion":"rabbitmq.com/v1beta1","kind":"RabbitmqCluster","metadata":{"name":"hello-world"}}]'
-    k8sMinVersion: ""
-    k8sMaxVersion: ""
     certified: "false"
-    createdAt: ""
+    createdAt: "2022-06-15T13:28:40+00:00"
     description: "RabbitMQ Cluster Operator developed and maintained by the RabbitMQ team automates the provisioning, management, of RabbitMQ clusters running on Kubernetes. \n"
-    containerImage: ""
-    support: ""
+    containerImage: docker.io/dockerhub.io/rabbitmqoperator/cluster-operator:1.14.0
     capabilities: Full Lifecycle
     repository: https://github.com/rabbitmq/cluster-operator
+    categories: Streaming & Messaging
 spec:
   displayName: RabbitMQ-cluster-operator
   description: |
     ## About the managed application
     RabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol, MQ Telemetry Transport, and other protocols.
+    See rabbitmq.com for detailed informations
     ## About this Operator
     RabbitMQ Cluster Kubernetes Operator is developed and maintened by the VMware RabbitMQ team and provides a consistent and easy way to deploy RabbitMQ clusters to Kubernetes and run them, including "day two" (continuous) operations. RabbitMQ clusters deployed using the Operator can be used by applications running on Kubernetes or outside of Kubernetes.
-    See: https://www.rabbitmq.com/kubernetes/operator/operator-overview.html for detailed information
-    ## Prerequisites for enabling this Operator
+    See: https://www.rabbitmq.com/kubernetes/operator/operator-overview.html for detailed informations
   maturity: mature
   version: 1.14.0
   replaces: ""
   skips: []
-  minKubeVersion: ""
+  minKubeVersion: 1.19.0
   keywords: []
   maintainers:
   - name: VMware Tanzu
@@ -260,7 +258,7 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
-                image: rabbitmqoperator/cluster-operator:1.14.0
+                image: dockerhub.io/rabbitmqoperator/cluster-operator:1.14.0
                 name: operator
                 ports:
                 - containerPort: 9782
