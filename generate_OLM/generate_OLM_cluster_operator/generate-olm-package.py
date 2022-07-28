@@ -52,7 +52,7 @@ os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cl
 os.system("cat ./generators/license.yaml >" + rabbitmq_cluster_operator_dir_manifests+"/crds.yaml")
 os.system("tail -n +8 ./manifests_crds/crds.yaml >>" + rabbitmq_cluster_operator_dir_manifests+"/crds.yaml")
 os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
-os.system("cp ./generators/annotation.yaml " + rabbitmq_cluster_operator_dir+"/metadata")
+os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir+"/metadata")
 
 # Cleanup
 os.system("rm ./tmpmanifests/*")
