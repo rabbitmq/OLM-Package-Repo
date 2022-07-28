@@ -49,14 +49,16 @@ os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cat ./generators/license.yaml >" + rabbitmq_cluster_operator_dir_manifests+"/crds.yaml")
 os.system("tail -n +8 ./manifests_crds/crds.yaml >>" + rabbitmq_cluster_operator_dir_manifests+"/crds.yaml")
+os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
+os.system("cp ./generators/annotation.yaml " + rabbitmq_cluster_operator_dir+"/metadata")
 
 # Cleanup
 os.system("rm ./tmpmanifests/*")
 
 # Generate metadata/annotations and Dockerfile
-print(rabbitmq_cluster_operator_dir)
-os.chdir(rabbitmq_cluster_operator_dir)
-os.system("opm alpha bundle generate --directory ./manifests --package rabbitmq-cluster-operator --channels stable --default stable")
+#print(rabbitmq_cluster_operator_dir)
+# os.chdir(rabbitmq_cluster_operator_dir)
+# os.system("opm alpha bundle generate --directory ./manifests --package rabbitmq-cluster-operator --channels stable --default stable")
 
 
 
