@@ -48,7 +48,7 @@ os.system("ytt -f ./overlays/overlay-webhook.yaml -f ./tmpmanifests/cluster-serv
 # Create the bundle structure
 rabbitmq_cluster_operator_dir=output_directory+"/" + version 
 rabbitmq_cluster_operator_dir_manifests=rabbitmq_cluster_operator_dir+"/manifests"
-replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/cluster-operator:"+version, "dockerhub.io/rabbitmqoperator/cluster-operator:"+version)
+replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/cluster-operator:"+version, "docker.io/rabbitmqoperator/cluster-operator:"+version)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 replace_if_rabbitmq_webhook("./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
 os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cluster_operator_dir_manifests)
