@@ -47,7 +47,8 @@ rabbitmq_cluster_operator_dir_manifests=rabbitmq_cluster_operator_dir+"/manifest
 replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/cluster-operator:"+version, "dockerhub.io/rabbitmqoperator/cluster-operator:"+version)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cluster_operator_dir_manifests)
-os.system("cp ./manifests_crds/crds.yaml " + rabbitmq_cluster_operator_dir_manifests)
+os.system("cat ./generators/license.yaml >" + rabbitmq_cluster_operator_dir_manifests+"/crds.yaml")
+os.system("tail -n +9 ./manifests_crds/crds.yaml >>" + rabbitmq_cluster_operator_dir_manifests+"/crds.yaml")
 
 # Cleanup
 os.system("rm ./tmpmanifests/*")
