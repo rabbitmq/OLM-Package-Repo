@@ -1,0 +1,44 @@
+#@ load("@ytt:data", "data")
+#@ load("@ytt:overlay", "overlay")
+#@ clusterserviceversion = overlay.subset({"kind": "ClusterServiceVersion"})
+#@ cluster_operator = overlay.subset({"metadata": {"name": "rabbitmq-messaging-topology-operator.v*"}})
+#@overlay/match by=overlay.and_op(clusterserviceversion, cluster_operator),expects="1+"
+---
+spec:
+  install:
+    spec:
+      permissions:
+        #@overlay/match by=overlay.subset({"serviceAccountName": "messaging-topology-operator"}),expects="1+"
+        -
+          #@overlay/match missing_ok=True
+          rules:
+          - apiGroups:
+            - coordination.k8s.io
+            resources:
+            - leases
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+            - update
+            - patch
+            - delete
+          - apiGroups:
+            - ""
+            resources:
+            - events
+            verbs:
+            - create
+          - apiGroups:
+            - ""
+            resources:
+            - configmaps
+            verbs:
+            - get
+            - list
+            - watch
+            - create
+            - update
+            - patch
+            - delete

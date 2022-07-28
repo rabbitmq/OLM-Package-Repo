@@ -23,6 +23,7 @@ def create_overlay(release_file, kind, firstString, endString, file_generator, f
                             found = False
                             parsing = False
                             filestring = ""
+                            return
               
                     
                 filestring = filestring + "          " + line
@@ -36,15 +37,21 @@ def create_overlay(release_file, kind, firstString, endString, file_generator, f
                 found = True
 
 # This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
-def replace_rabbitmq_cluster_operator_version_overlay(file_input, version):
+def replace_rabbitmq_cluster_operator_version_overlay(file_input, pattern1, pattern2):
 
     with fileinput.FileInput(file_input, inplace=True, backup='.bak') as file:
         for line in file:
-            print(line.replace("rabbitmq-cluster-operator.v*", "rabbitmq-cluster-operator.v"+version), end='')
+            print(line.replace(pattern1, pattern2), end='')
 
 def replace_rabbitmq_cluster_operator_image(file_input, pattern1, pattern2):
 
     with fileinput.FileInput(file_input, inplace=True, backup='.bak') as file:
-        print("test")
         for line in file:
             print(line.replace(pattern1, pattern2), end='')
+
+def replace_if_rabbitmq_webhook(file_input):
+
+    with fileinput.FileInput(file_input, inplace=True, backup='.bak') as file:
+        for line in file:
+           print(line.replace("- admissionReviewVersions:", "  admissionReviewVersions:"), end='')
+

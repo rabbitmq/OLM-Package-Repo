@@ -1,0 +1,339 @@
+#@ load("@ytt:data", "data")
+#@ load("@ytt:overlay", "overlay")
+#@ clusterserviceversion = overlay.subset({"kind": "ClusterServiceVersion"})
+#@ cluster_operator = overlay.subset({"metadata": {"name": "rabbitmq-messaging-topology-operator.v*"}})
+#@overlay/match by=overlay.and_op(clusterserviceversion, cluster_operator),expects="1+"
+---
+spec:
+  install:
+    spec:
+      clusterPermissions:
+        #@overlay/match by=overlay.subset({"serviceAccountName": "messaging-topology-operator"}),expects="1+"
+        -
+          #@overlay/match missing_ok=True
+          rules:
+          - apiGroups:
+            - ""
+            resources:
+            - events
+            verbs:
+            - create
+            - get
+            - patch
+          - apiGroups:
+            - ""
+            resources:
+            - secrets
+            verbs:
+            - create
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - ""
+            resources:
+            - services
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - bindings
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - bindings/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - bindings/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - exchanges
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - exchanges/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - exchanges/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - federations
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - federations/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - federations/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - permissions
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - permissions/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - permissions/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - policies
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - policies/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - policies/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - queues
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - queues/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - queues/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - rabbitmqclusters
+            verbs:
+            - get
+            - list
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - rabbitmqclusters/status
+            verbs:
+            - get
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - schemareplications
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - schemareplications/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - schemareplications/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - shovels
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - shovels/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - shovels/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - superstreams
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - superstreams/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - superstreams/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - users
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - users/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - users/status
+            verbs:
+            - get
+            - patch
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - vhosts
+            verbs:
+            - create
+            - delete
+            - get
+            - list
+            - patch
+            - update
+            - watch
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - vhosts/finalizers
+            verbs:
+            - update
+          - apiGroups:
+            - rabbitmq.com
+            resources:
+            - vhosts/status
+            verbs:
+            - get
+            - patch
+            - update
