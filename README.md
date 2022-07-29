@@ -18,7 +18,9 @@ The script OLM-Package-Repo/generate_OLM/generate_OLM_cluster_operator/generate-
 
 It can be used in this way: </br>
 
+```
 python3 generate-olm-package.py ./manifests_crds/cluster-operator.yaml 1.14.0 ./../../OLM/rabbitmq-cluster-operator </br>
+```
 
 First parameter is the cluster-operator release file </br>
 The second parameter the version of the Bundle we are creating (Same version of the cluster operator) </br>
