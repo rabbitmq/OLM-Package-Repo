@@ -24,7 +24,7 @@ spec:
     See: https://www.rabbitmq.com/kubernetes/operator/operator-overview.html for detailed informations
   maturity: mature
   version: #@ data.values.version
-  replaces: ""
+  replaces: #@ data.values.replaces
   skips: []
   minKubeVersion: 1.19.0
   keywords: []

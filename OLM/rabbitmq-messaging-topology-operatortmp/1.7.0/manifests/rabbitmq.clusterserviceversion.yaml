@@ -1,9 +1,15 @@
-# Copyright 2022 VMware, Inc. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# RabbitMQ Cluster Operator
+#
+# Copyright 2020 VMware, Inc. All Rights Reserved.
+#
+# This product is licensed to you under the Mozilla Public license, Version 2.0 (the "License").  You may not use this product except in compliance with the Mozilla Public License.
+#
+# This product may include a number of subcomponents with separate copyright notices and license terms. Your use of these subcomponents is subject to the terms and conditions of the subcomponent's license, as noted in the LICENSE file.
+
 apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
-  name: rabbitmq-messaging-topology-operator.v1.7.1
+  name: rabbitmq-messaging-topology-operator.v1.7.0
   namespace: placeholder
   annotations:
     alm-examples: '[{"apiVersion":"rabbitmq.com/v1beta1","kind":"Binding","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Exchange","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Federation","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Permission","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Policy","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Queue","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"SchemaReplication","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Shovel","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1alpha1","kind":"SuperStream","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"User","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Vhost","metadata":{"name":""},"spec":{}}]'
@@ -31,7 +37,7 @@ spec:
     The operator works on top of the RabbitMQ cluster operator.
     Messaging Topology Operator is tested with the latest release of RabbitMQ Cluster Operator. It uses the generated default user secret from RabbitmqCluster (set in rabbitmqcluster.status.binding) to authenticate with RabbitMQ server.
   maturity: stable
-  version: 1.7.1
+  version: 1.7.0
   replaces: ""
   skips: []
   minKubeVersion: ""
@@ -40,7 +46,7 @@ spec:
   - name: VMware Tanzu
     email: rabbitmq-platform@groups.vmware.com
   provider:
-    name: VMware Tanzu
+    name: "VMware Tanzu"
   labels: {}
   selector:
     matchLabels: {}
@@ -279,7 +285,7 @@ spec:
     strategy: deployment
     spec:
       permissions:
-      - serviceAccountName: messaging-topology-operator
+      - serviceAccountName: rabbitmq-messaging-topology-operator
         rules:
         - apiGroups:
           - coordination.k8s.io
@@ -312,7 +318,7 @@ spec:
           - patch
           - delete
       clusterPermissions:
-      - serviceAccountName: messaging-topology-operator
+      - serviceAccountName: rabbitmq-messaging-topology-operator
         rules:
         - apiGroups:
           - ""
@@ -640,7 +646,7 @@ spec:
           - patch
           - update
       deployments:
-      - name: messaging-topology-operator
+      - name: rabbitmq-messaging-topology-operator
         spec:
           replicas: 1
           selector:
@@ -697,223 +703,224 @@ spec:
     supported: true
   webhookdefinitions:
   - type: ValidatingAdmissionWebhook
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-binding
-    failurePolicy: Fail
-    name: vbinding.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - bindings
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-exchange
-    failurePolicy: Fail
-    name: vexchange.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - exchanges
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-federation
-    failurePolicy: Fail
-    name: vfederation.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - federations
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-permission
-    failurePolicy: Fail
-    name: vpermission.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - permissions
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-policy
-    failurePolicy: Fail
-    name: vpolicy.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - policies
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-queue
-    failurePolicy: Fail
-    name: vqueue.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - queues
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-schemareplication
-    failurePolicy: Fail
-    name: vschemareplication.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - schemareplications
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-shovel
-    failurePolicy: Fail
-    name: vshovel.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - shovels
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-user
-    failurePolicy: Fail
-    name: vuser.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - users
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1beta1-vhost
-    failurePolicy: Fail
-    name: vvhost.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1beta1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - vhosts
-    sideEffects: None
-  - admissionReviewVersions:
-    - v1
-    clientConfig:
-      service:
-        name: webhook-service
-        namespace: rabbitmq-system
-        path: /validate-rabbitmq-com-v1alpha1-superstream
-    failurePolicy: Fail
-    name: vsuperstream.kb.io
-    rules:
-    - apiGroups:
-      - rabbitmq.com
-      apiVersions:
-      - v1alpha1
-      operations:
-      - CREATE
-      - UPDATE
-      resources:
-      - superstreams
-    sideEffects: None
+    webhooks:
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-binding
+      failurePolicy: Fail
+      name: vbinding.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - bindings
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-exchange
+      failurePolicy: Fail
+      name: vexchange.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - exchanges
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-federation
+      failurePolicy: Fail
+      name: vfederation.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - federations
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-permission
+      failurePolicy: Fail
+      name: vpermission.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - permissions
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-policy
+      failurePolicy: Fail
+      name: vpolicy.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - policies
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-queue
+      failurePolicy: Fail
+      name: vqueue.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - queues
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-schemareplication
+      failurePolicy: Fail
+      name: vschemareplication.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - schemareplications
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-shovel
+      failurePolicy: Fail
+      name: vshovel.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - shovels
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-user
+      failurePolicy: Fail
+      name: vuser.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - users
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1beta1-vhost
+      failurePolicy: Fail
+      name: vvhost.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1beta1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - vhosts
+      sideEffects: None
+    - admissionReviewVersions:
+      - v1
+      clientConfig:
+        service:
+          name: webhook-service
+          namespace: rabbitmq-system
+          path: /validate-rabbitmq-com-v1alpha1-superstream
+      failurePolicy: Fail
+      name: vsuperstream.kb.io
+      rules:
+      - apiGroups:
+        - rabbitmq.com
+        apiVersions:
+        - v1alpha1
+        operations:
+        - CREATE
+        - UPDATE
+        resources:
+        - superstreams
+      sideEffects: None

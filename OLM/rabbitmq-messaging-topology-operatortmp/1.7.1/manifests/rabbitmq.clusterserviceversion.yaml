@@ -1,5 +1,11 @@
-# Copyright 2022 VMware, Inc. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# RabbitMQ Cluster Operator
+#
+# Copyright 2020 VMware, Inc. All Rights Reserved.
+#
+# This product is licensed to you under the Mozilla Public license, Version 2.0 (the "License").  You may not use this product except in compliance with the Mozilla Public License.
+#
+# This product may include a number of subcomponents with separate copyright notices and license terms. Your use of these subcomponents is subject to the terms and conditions of the subcomponent's license, as noted in the LICENSE file.
+
 apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
@@ -676,16 +682,12 @@ spec:
                     cpu: 100m
                     memory: 100Mi
                 volumeMounts:
-                - mountPath: /tmp/k8s-webhook-server/serving-certs
-                  name: cert
+                - mountPath: /apiserver.local.config/certificates
+                  name: apiservice-cert
                   readOnly: true
               serviceAccountName: messaging-topology-operator
               terminationGracePeriodSeconds: 10
-              volumes:
-              - name: cert
-                secret:
-                  defaultMode: 420
-                  secretName: webhook-server-cert
+    
   installModes:
   - type: OwnNamespace
     supported: true
@@ -697,7 +699,7 @@ spec:
     supported: true
   webhookdefinitions:
   - type: ValidatingAdmissionWebhook
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -717,7 +719,7 @@ spec:
       resources:
       - bindings
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -737,7 +739,7 @@ spec:
       resources:
       - exchanges
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -757,7 +759,7 @@ spec:
       resources:
       - federations
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -777,7 +779,7 @@ spec:
       resources:
       - permissions
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -797,7 +799,7 @@ spec:
       resources:
       - policies
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -817,7 +819,7 @@ spec:
       resources:
       - queues
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -837,7 +839,7 @@ spec:
       resources:
       - schemareplications
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -857,7 +859,7 @@ spec:
       resources:
       - shovels
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -877,7 +879,7 @@ spec:
       resources:
       - users
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
@@ -897,7 +899,7 @@ spec:
       resources:
       - vhosts
     sideEffects: None
-  - admissionReviewVersions:
+    admissionReviewVersions:
     - v1
     clientConfig:
       service:
