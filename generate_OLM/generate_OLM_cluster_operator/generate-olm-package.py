@@ -18,7 +18,10 @@ output_directory = sys.argv[3]
 
 f = open("./generators/replace.txt")
 replaces = f.readline().strip()
+oldversion= f.readline().strip()
 f.close()
+
+replace_rabbitmq_cluster_operator_image("./generators/cluster-service-version-generator.yml","rabbitmqoperator/cluster-operator:"+oldversion, "rabbitmqoperator/cluster-operator:"+version)
 
 # Apply version to the service-version generator
 ytt_command_add_version = "ytt -f ./generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-cluster-operator.v"+version+" --data-value-yaml version="+version+ " --data-value-yaml replaces="+replaces+ "> ./tmpmanifests/cluster-service-version-generator.yaml"
@@ -59,8 +62,10 @@ os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
 os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir+"/metadata")
 
 # Cleanup
-os.system("rm ./tmpmanifests/*")
 os.system("echo rabbitmq-cluster-operator.v"+version + " >./generators/replace.txt")
+os.system("echo "+version + " >>./generators/replace.txt")
+os.system("rm ./tmpmanifests/*")
+os.system("rm ./overlays/*")
 
 # Generate metadata/annotations and Dockerfile
 #print(rabbitmq_cluster_operator_dir)

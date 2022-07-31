@@ -48,19 +48,22 @@ os.system("ytt -f ./overlays/overlay-webhook.yaml -f ./tmpmanifests/cluster-serv
 # Create the bundle structure
 rabbitmq_cluster_operator_dir=output_directory+"/" + version 
 rabbitmq_cluster_operator_dir_manifests=rabbitmq_cluster_operator_dir+"/manifests"
-replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/cluster-operator:"+version, "docker.io/rabbitmqoperator/cluster-operator:"+version)
+replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/messaging-topology-operator:"+version, "docker.io/rabbitmqoperator/messaging-topology-operator:"+version)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 replace_if_rabbitmq_webhook("./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
 os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./manifests_crds/crds/*.yaml " + rabbitmq_cluster_operator_dir_manifests)
-
+os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
+os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir+"/metadata")
+os.system("cp ./generators/rabbitmq.webhook-service.yaml " + rabbitmq_cluster_operator_dir_manifests)
 # Cleanup
-#os.system("rm ./tmpmanifests/*")
+os.system("rm ./tmpmanifests/*")
+os.system("rm ./overlays/*")
 
 # Generate metadata/annotations and Dockerfile
-print(rabbitmq_cluster_operator_dir)
-os.chdir(rabbitmq_cluster_operator_dir)
-os.system("opm alpha bundle generate --directory ./manifests --package rabbitmq-messaging-topology-operator --channels stable --default stable")
+#print(rabbitmq_cluster_operator_dir)
+#os.chdir(rabbitmq_cluster_operator_dir)
+#os.system("opm alpha bundle generate --directory ./manifests --package rabbitmq-messaging-topology-operator --channels stable --default stable")
 
 
 

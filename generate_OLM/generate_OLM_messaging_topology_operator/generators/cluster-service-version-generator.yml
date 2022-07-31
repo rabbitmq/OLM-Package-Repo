@@ -11,15 +11,15 @@ metadata:
     k8sMaxVersion: ''
     categories: Streaming & Messaging
     certified: 'false'
-    createdAt: ''
+    createdAt: "2022-08-01T13:28:40+00:00"
     description: >-
       Kubernetes operator to allow developers to create and manage RabbitMQ
       messaging topologies within a RabbitMQ cluster using a declarative
       Kubernetes API. 
-    containerImage: ''
+    containerImage: 'rabbitmqoperator/messaging-topology-operator:1.7.1'
     support: ''
     capabilities: Full Lifecycle
-    repository: ''
+    repository: 'https://github.com/rabbitmq/messaging-topology-operator'
 spec:
   displayName: rabbitmq-messaging-topology-operator
   description: >
@@ -56,7 +56,7 @@ spec:
   version: #@ data.values.version
   replaces: ''
   skips: []
-  minKubeVersion: ''
+  minKubeVersion: '1.19.0'
   keywords: []
   maintainers:
     - name: VMware Tanzu
