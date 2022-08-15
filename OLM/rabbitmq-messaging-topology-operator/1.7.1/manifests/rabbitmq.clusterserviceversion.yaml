@@ -675,17 +675,8 @@ spec:
                   requests:
                     cpu: 100m
                     memory: 100Mi
-                volumeMounts:
-                - mountPath: /tmp/k8s-webhook-server/serving-certs
-                  name: cert
-                  readOnly: true
               serviceAccountName: messaging-topology-operator
               terminationGracePeriodSeconds: 10
-              volumes:
-              - name: cert
-                secret:
-                  defaultMode: 420
-                  secretName: webhook-server-cert
   installModes:
   - type: OwnNamespace
     supported: true
