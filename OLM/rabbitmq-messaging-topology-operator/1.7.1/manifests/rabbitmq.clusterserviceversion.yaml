@@ -6,13 +6,13 @@ metadata:
   name: rabbitmq-messaging-topology-operator.v1.7.1
   namespace: placeholder
   annotations:
-    alm-examples: '[{"apiVersion":"rabbitmq.com/v1beta1","kind":"Binding","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Exchange","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Federation","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Permission","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Policy","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Queue","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"SchemaReplication","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Shovel","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1alpha1","kind":"SuperStream","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"User","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Vhost","metadata":{"name":""},"spec":{}}]'
+    alm-examples: '[{"apiVersion":"rabbitmq.com/v1beta1","kind":"Binding","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Exchange","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Federation","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Permission","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Policy","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Queue","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"SchemaReplication","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Shovel","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1alpha1","kind":"SuperStream","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"User","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Vhost","metadata":{"name":"test"},"spec":{"rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}}]'
     categories: Streaming & Messaging
     certified: "false"
-    createdAt: "2022-08-01T13:28:40+00:00"
+    createdAt: "2022-08-22T13:28:40+00:00"
     description: 'Kubernetes operator to allow developers to create and manage RabbitMQ messaging topologies within a RabbitMQ cluster using a declarative Kubernetes API. '
     containerImage: docker.io/rabbitmqoperator/messaging-topology-operator:1.7.1
-    support: "VMware Tanzu"
+    support: VMware Tanzu
     capabilities: Full Lifecycle
     repository: https://github.com/rabbitmq/messaging-topology-operator
 spec:
