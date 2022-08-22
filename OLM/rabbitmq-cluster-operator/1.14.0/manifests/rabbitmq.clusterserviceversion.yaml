@@ -231,7 +231,11 @@ spec:
           - update
           - watch
       deployments:
-      - name: rabbitmq-cluster-operator
+      - labels:
+          app.kubernetes.io/component: rabbitmq-operator
+          app.kubernetes.io/name: rabbitmq-cluster-operator
+          app.kubernetes.io/part-of: rabbitmq
+        name: rabbitmq-cluster-operator
         spec:
           replicas: 1
           selector:

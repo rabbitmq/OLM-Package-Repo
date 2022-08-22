@@ -7,8 +7,6 @@ metadata:
   annotations:
     alm-examples: >-
       [{"apiVersion":"rabbitmq.com/v1beta1","kind":"Binding","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Exchange","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Federation","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Permission","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Policy","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Queue","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"SchemaReplication","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Shovel","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1alpha1","kind":"SuperStream","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"User","metadata":{"name":""},"spec":{}},{"apiVersion":"rabbitmq.com/v1beta1","kind":"Vhost","metadata":{"name":""},"spec":{}}]
-    k8sMinVersion: ''
-    k8sMaxVersion: ''
     categories: Streaming & Messaging
     certified: 'false'
     createdAt: "2022-08-01T13:28:40+00:00"
