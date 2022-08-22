@@ -12,7 +12,7 @@ metadata:
     createdAt: "2022-08-01T13:28:40+00:00"
     description: 'Kubernetes operator to allow developers to create and manage RabbitMQ messaging topologies within a RabbitMQ cluster using a declarative Kubernetes API. '
     containerImage: docker.io/rabbitmqoperator/messaging-topology-operator:1.7.1
-    support: ""
+    support: "VMware Tanzu"
     capabilities: Full Lifecycle
     repository: https://github.com/rabbitmq/messaging-topology-operator
 spec:
@@ -639,10 +639,6 @@ spec:
           - update
       deployments:
       - name: messaging-topology-operator
-        labels:
-          app.kubernetes.io/component: rabbitmq-operator
-          app.kubernetes.io/name: messaging-topology-operator
-          app.kubernetes.io/part-of: rabbitmq
         spec:
           replicas: 1
           selector:
@@ -677,8 +673,17 @@ spec:
                   requests:
                     cpu: 100m
                     memory: 100Mi
+                volumeMounts:
+                - mountPath: /tmp/k8s-webhook-server/serving-certs
+                  name: cert
+                  readOnly: true
               serviceAccountName: messaging-topology-operator
               terminationGracePeriodSeconds: 10
+              volumes:
+              - name: cert
+                secret:
+                  defaultMode: 420
+                  secretName: webhook-server-cert
   installModes:
   - type: OwnNamespace
     supported: true

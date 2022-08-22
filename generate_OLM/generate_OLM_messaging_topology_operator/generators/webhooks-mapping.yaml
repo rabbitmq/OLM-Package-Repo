@@ -1,0 +1,232 @@
+  webhookdefinitions:
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vbinding.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-binding
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - bindings
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vexchange.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-exchange
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - exchanges
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vfederation.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-federation
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - federations
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vpermission.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-permission
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - permissions
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vpolicy.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-policy
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - policies
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vqueue.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-queue
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - queues
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vschemareplication.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-schemareplication
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - schemareplications
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vshovel.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-shovel
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - shovels
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vuser.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-user
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - users
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vvhost.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-vhost
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - vhosts
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vsuperstream.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1alpha1-superstream
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - superstreams
+    sideEffects: None

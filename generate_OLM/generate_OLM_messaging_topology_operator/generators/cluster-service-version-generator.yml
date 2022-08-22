@@ -319,5 +319,3 @@ spec:
     - type: AllNamespaces
       supported: true
     
-  webhookdefinitions:
-  - type: ValidatingAdmissionWebhook

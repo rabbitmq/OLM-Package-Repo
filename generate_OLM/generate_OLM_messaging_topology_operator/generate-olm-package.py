@@ -31,19 +31,21 @@ os.system("echo \"\n---\" >> "+cluster_operator_release_file )
 create_overlay(cluster_operator_release_file, "kind: Role", "rules:", "---", "./generators/overlay-permission-generator.yaml", "./overlays/overlay-permission.yaml")       
 create_overlay(cluster_operator_release_file, "kind: ClusterRole", "rules:", "---", "./generators/overlay-cluster-permission-generator.yaml", "./overlays/overlay-cluster-permission.yaml")    
 create_overlay(cluster_operator_release_file, "kind: Deployment", "spec:", "---", "./generators/overlay-deployment-generator.yaml", "./overlays/overlay-deployment.yaml")  
-create_overlay(cluster_operator_release_file, "kind: ValidatingWebhookConfiguration", "webhooks:", "---", "./generators/overlay-webhook-generator.yaml", "./overlays/overlay-webhook.yaml")  
+#create_overlay(cluster_operator_release_file, "kind: ValidatingWebhookConfiguration", "webhooks:", "---", "./generators/overlay-webhook-generator.yaml", "./overlays/overlay-webhook.yaml")  
 
 replace_rabbitmq_cluster_operator_version_overlay("./overlays/overlay-permission.yaml", "rabbitmq-messaging-topology-operator.v*", "rabbitmq-messaging-topology-operator.v"+version)
 replace_rabbitmq_cluster_operator_version_overlay("./overlays/overlay-cluster-permission.yaml", "rabbitmq-messaging-topology-operator.v*","rabbitmq-messaging-topology-operator.v"+version)
 replace_rabbitmq_cluster_operator_version_overlay("./overlays/overlay-deployment.yaml", "rabbitmq-messaging-topology-operator.v*", "rabbitmq-messaging-topology-operator.v"+version)
-replace_rabbitmq_cluster_operator_version_overlay("./overlays/overlay-webhook.yaml", "rabbitmq-messaging-topology-operator.v*", "rabbitmq-messaging-topology-operator.v"+version)
+#replace_rabbitmq_cluster_operator_version_overlay("./overlays/overlay-webhook.yaml", "rabbitmq-messaging-topology-operator.v*", "rabbitmq-messaging-topology-operator.v"+version)
 
 # Apply the overlay and generate the ClusterServiceVersion file from overlay
 os.system("ytt -f ./overlays/overlay-permission.yaml -f ./tmpmanifests/cluster-service-version-generator.yaml  > ./tmpmanifests/cluster-service-version-permission.yaml")
 os.system("ytt -f ./overlays/overlay-cluster-permission.yaml -f ./tmpmanifests/cluster-service-version-permission.yaml > ./tmpmanifests/cluster-service-version-cluster-permission.yaml")
-os.system("ytt -f ./overlays/overlay-deployment.yaml -f ./tmpmanifests/cluster-service-version-cluster-permission.yaml > ./tmpmanifests/cluster-service-version-webhook.yaml")
+
 os.system("cat ./generators/license.yaml > ./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
-os.system("ytt -f ./overlays/overlay-webhook.yaml -f ./tmpmanifests/cluster-service-version-webhook.yaml >> ./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
+os.system("ytt -f ./overlays/overlay-deployment.yaml -f ./tmpmanifests/cluster-service-version-cluster-permission.yaml >> ./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
+os.system("cat ./generators/webhooks-mapping.yaml >> ./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
+#os.system("ytt -f ./overlays/overlay-webhook.yaml -f ./tmpmanifests/cluster-service-version-deployment.yaml >> ./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
 
 # Create the bundle structure
 rabbitmq_cluster_operator_dir=output_directory+"/" + version 
