@@ -56,7 +56,13 @@ os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_metadata)
 replace_if_rabbitmq_webhook("./tmpmanifests/rabbitmq.clusterserviceversion.yaml")
 os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cluster_operator_dir_manifests)
-os.system("cp ./manifests_crds/crds/*.yaml " + rabbitmq_cluster_operator_dir_manifests)
+
+# Adding license tags to custom resource definition files
+for filename in os.scandir("./manifests_crds/crds"):
+    if filename.is_file():
+       os.system("cat ./generators/license.yaml > " + rabbitmq_cluster_operator_dir_manifests + "/" + filename.name)
+       os.system("tail -n +2 ./manifests_crds/crds/" + filename.name  + " >> " + rabbitmq_cluster_operator_dir_manifests + "/" + filename.name)
+        
 os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
 os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir_metadata)
 os.system("cp ./generators/rabbitmq.webhook-service.yaml " + rabbitmq_cluster_operator_dir_manifests)
@@ -64,10 +70,6 @@ os.system("cp ./generators/rabbitmq.webhook-service.yaml " + rabbitmq_cluster_op
 os.system("rm ./tmpmanifests/*")
 os.system("rm ./overlays/*")
 
-# Generate metadata/annotations and Dockerfile
-#print(rabbitmq_cluster_operator_dir)
-#os.chdir(rabbitmq_cluster_operator_dir)
-#os.system("opm alpha bundle generate --directory ./manifests --package rabbitmq-messaging-topology-operator --channels stable --default stable")
 
 
 
