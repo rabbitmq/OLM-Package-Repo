@@ -17,8 +17,16 @@ operator_release_file = sys.argv[1]
 version = sys.argv[2]
 output_directory = sys.argv[3]
 
+# Manage update field to update versioning
+f = open("./generators/replace.txt")
+replaces = f.readline().strip()
+oldversion= f.readline().strip()
+f.close()
+
+replace_rabbitmq_cluster_operator_image("./generators/cluster-service-version-generator.yml","rabbitmqoperator/messaging-topology-operator:"+oldversion, "rabbitmqoperator/messaging-topology-operator:"+version)
+
 # Apply version to the service-version generator
-ytt_command_add_version = "ytt -f ./generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-messaging-topology-operator.v"+version+" --data-value-yaml version="+version+ "> ./tmpmanifests/cluster-service-version-generator.yaml"
+ytt_command_add_version = "ytt -f ./generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-messaging-topology-operator.v"+version+" --data-value-yaml version="+version+ " --data-value-yaml replaces="+replaces+ "> ./tmpmanifests/cluster-service-version-generator.yaml"
 os.system(ytt_command_add_version)
 
 # Create a copy of the cluster operator and add --- at the end of the file
