@@ -11,7 +11,7 @@ metadata:
     createdAt: "2022-06-15T13:28:40+00:00"
     description: "RabbitMQ Cluster Operator developed and maintained by the RabbitMQ team automates the provisioning, management, of RabbitMQ clusters running on Kubernetes. \n"
     containerImage: docker.io/rabbitmqoperator/cluster-operator:1.14.0
-    capabilities: Full Lifecycle
+    capabilities: Deep Insights
     repository: https://github.com/rabbitmq/cluster-operator
     categories: Streaming & Messaging
 spec:

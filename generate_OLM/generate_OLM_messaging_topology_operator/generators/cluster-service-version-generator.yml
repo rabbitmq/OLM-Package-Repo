@@ -16,7 +16,7 @@ metadata:
       Kubernetes API. 
     containerImage: 'rabbitmqoperator/messaging-topology-operator:1.9.0'
     support: 'VMware Tanzu'
-    capabilities: Full Lifecycle
+    capabilities: Deep Insights
     repository: 'https://github.com/rabbitmq/messaging-topology-operator'
 spec:
   displayName: rabbitmq-messaging-topology-operator
