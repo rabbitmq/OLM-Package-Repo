@@ -67,10 +67,6 @@ os.system("echo "+version + " >>./generators/replace.txt")
 os.system("rm ./tmpmanifests/*")
 os.system("rm ./overlays/*")
 
-# Generate metadata/annotations and Dockerfile
-#print(rabbitmq_cluster_operator_dir)
-# os.chdir(rabbitmq_cluster_operator_dir)
-# os.system("opm alpha bundle generate --directory ./manifests --package rabbitmq-cluster-operator --channels stable --default stable")
 
 
 
