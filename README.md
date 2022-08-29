@@ -20,6 +20,7 @@ It can be used in this way: </br>
 
 ```
 python3 generate-olm-package.py ./manifests_crds/cluster-operator.yaml 1.14.0 ./../../OLM/rabbitmq-cluster-operator </br>
+python3 generate-olm-package.py ./manifests_crds/./manifests_crds/messaging-topology-operator-with-certmanager.yaml 1.14.0 ./../../OLM/rabbitmq-messaging-topology-operator </br>
 ```
 
 First parameter is the cluster-operator release file </br>
