@@ -76,8 +76,8 @@ os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir_me
 os.system("cp ./generators/rabbitmq.webhook-service.yaml " + rabbitmq_cluster_operator_dir_manifests)
 os.system("cp ./generators/rabbitmq.config-map.yaml " + rabbitmq_cluster_operator_dir_manifests)
 # Cleanup
-#os.system("rm ./tmpmanifests/*")
-#os.system("rm ./overlays/*")
+os.system("rm ./tmpmanifests/*")
+os.system("rm ./overlays/*")
 
 
 
