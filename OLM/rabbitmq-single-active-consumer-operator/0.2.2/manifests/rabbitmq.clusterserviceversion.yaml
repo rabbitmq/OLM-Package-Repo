@@ -6,11 +6,12 @@ metadata:
   name: rabbitmq-single-active-consumer-operator.v0.2.2
   namespace: placeholder
   annotations:
+    alm-examples: '[{"apiVersion":"rabbitmq.com/v1alpha1","kind":"SuperStreamConsumer","metadata":{"name":"consumers"},"spec":{"superStreamReference":"orders", "consumerPodSpec":{}}}]'
     categories: Streaming & Messaging
     certified: "false"
     createdAt: "2022-08-22T13:28:40+00:00"
-    description: 'Kubernetes operator to allow developers to create and manage RabbitMQ messaging topologies within a RabbitMQ cluster using a declarative Kubernetes API. '
-    containerImage: rabbitmqoperator/single-active-consumer-operator:0.2.2
+    description: This Kubernetes operator serves as an automated orchestration layer to create a single-active-consumer topology on a RabbitMQ Cluster with SuperStreams. In this topology, a single SuperStream can be partitioned into smaller partition streams; the purpose of this operator is to ensure that for each partition, exactly one application Pod is consuming from the partition stream at any given time.
+    containerImage: docker.io/rabbitmqoperator/single-active-consumer-operator:0.2.2
     support: VMware Tanzu
     capabilities: Deep Insights
     repository: https://github.com/rabbitmq/single-active-consumer-operator
@@ -19,7 +20,7 @@ spec:
   description: "## About the managed application\n\nRabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol, MQ Telemetry Transport, and other protocols.\n## About this Operator\nThis Kubernetes operator serves as an automated orchestration layer to create a single-active-consumer topology on a RabbitMQ Cluster with SuperStreams.  In this topology, a single SuperStream can be partitioned into smaller partition streams; the purpose of this operator is to ensure that for each partition,  exactly one application Pod is consuming from the partition stream at any given time.       \n## Prerequisites for enabling this Operator\nThe operator works on top of the RabbitMQ cluster operator and the RabbitMQ messaging topology operator, so these needs to be installed before using this operator.\n"
   maturity: beta
   version: 0.2.2
-  replaces: 
+  replaces: rabbitmq-single-active-operator.v0.2.2
   skips: []
   minKubeVersion: 1.19.0
   keywords: []
@@ -198,7 +199,7 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
-                image: rabbitmqoperator/single-active-consumer-operator:0.2.2
+                image: docker.io/rabbitmqoperator/single-active-consumer-operator:0.2.2
                 livenessProbe:
                   httpGet:
                     path: /healthz

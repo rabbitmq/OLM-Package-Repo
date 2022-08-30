@@ -59,7 +59,7 @@ os.system("cat ./generators/webhooks-mapping.yaml >> ./tmpmanifests/rabbitmq.clu
 rabbitmq_cluster_operator_dir=output_directory+"/" + version 
 rabbitmq_cluster_operator_dir_manifests=rabbitmq_cluster_operator_dir+"/manifests"
 rabbitmq_cluster_operator_dir_metadata=rabbitmq_cluster_operator_dir+"/metadata"
-replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/messaging-topology-operator:"+version, "docker.io/rabbitmqoperator/messaging-topology-operator:"+version)
+replace_rabbitmq_cluster_operator_image("./tmpmanifests/rabbitmq.clusterserviceversion.yaml","rabbitmqoperator/single-active-consumer-operator:"+version, "docker.io/rabbitmqoperator/single-active-consumer-operator:"+version)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
 os.system("mkdir -p " + rabbitmq_cluster_operator_dir_metadata)
 replace_if_rabbitmq_webhook("./tmpmanifests/rabbitmq.clusterserviceversion.yaml")

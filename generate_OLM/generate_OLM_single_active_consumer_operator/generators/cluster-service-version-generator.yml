@@ -6,14 +6,12 @@ metadata:
   namespace: placeholder
   annotations:
     alm-examples: >-
-      [{"apiVersion":"v1alpha1","kind":"SuperStream","metadata":{"name":"orders"},"spec":{"name":"orders", "partitions":"3","rabbitmqClusterReference":{"name":"rabbitmq-cluster"}}}]
+      [{"apiVersion":"rabbitmq.com/v1alpha1","kind":"SuperStreamConsumer","metadata":{"name":"consumers"},"spec":{"superStreamReference":"orders", "consumerPodSpec":{}}}]
     categories: Streaming & Messaging
     certified: 'false'
     createdAt: "2022-08-22T13:28:40+00:00"
     description: >-
-      Kubernetes operator to allow developers to create and manage RabbitMQ
-      messaging topologies within a RabbitMQ cluster using a declarative
-      Kubernetes API. 
+      This Kubernetes operator serves as an automated orchestration layer to create a single-active-consumer topology on a RabbitMQ Cluster with SuperStreams. In this topology, a single SuperStream can be partitioned into smaller partition streams; the purpose of this operator is to ensure that for each partition, exactly one application Pod is consuming from the partition stream at any given time.
     containerImage: 'rabbitmqoperator/single-active-consumer-operator:0.2.2'
     support: 'VMware Tanzu'
     capabilities: Deep Insights
