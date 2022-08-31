@@ -19,8 +19,9 @@ The script OLM-Package-Repo/generate_OLM/generate_OLM_cluster_operator/generate-
 It can be used in this way: </br>
 
 ```
-python3 generate-olm-package.py ./manifests_crds/cluster-operator.yaml 1.14.0 ./../../OLM/rabbitmq-cluster-operator </br>
-python3 generate-olm-package.py ./manifests_crds/./manifests_crds/messaging-topology-operator-with-certmanager.yaml 1.14.0 ./../../OLM/rabbitmq-messaging-topology-operator </br>
+python3 generate-olm-package.py ./manifests_crds/cluster-operator.yaml 1.14.0 ./../../OLM/rabbitmq-cluster-operator 
+python3 generate-olm-package.py ./manifests_crds/manifests_crds/messaging-topology-operator-with-certmanager.yaml 1.14.0 ./../../OLM/rabbitmq-messaging-topology-operator 
+python3 generate-olm-package.py ./manifests_crds/manifests_crds/single-active-consumer-operator-with-certmanager.yaml 1.14.0 ./../../OLM/rabbitmq-single-active-consumer-operator 
 ```
 
 First parameter is the cluster-operator release file </br>
