@@ -14,7 +14,7 @@ metadata:
       Kubernetes operator to allow developers to create and manage RabbitMQ
       messaging topologies within a RabbitMQ cluster using a declarative
       Kubernetes API. 
-    containerImage: 'rabbitmqoperator/messaging-topology-operator:1.9.0'
+    containerImage: 'rabbitmqoperator/messaging-topology-operator:1.8.0'
     support: 'VMware Tanzu'
     capabilities: Deep Insights
     repository: 'https://github.com/rabbitmq/messaging-topology-operator'
