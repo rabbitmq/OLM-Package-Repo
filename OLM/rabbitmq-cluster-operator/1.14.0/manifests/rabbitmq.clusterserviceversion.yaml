@@ -25,7 +25,7 @@ spec:
     See: https://www.rabbitmq.com/kubernetes/operator/operator-overview.html for detailed informations
   maturity: mature
   version: 1.14.0
-  replaces: ""
+  replaces: "" 
   skips: []
   minKubeVersion: 1.19.0
   keywords: []
@@ -231,7 +231,7 @@ spec:
           - update
           - watch
       deployments:
-      - labels:
+      - label:
           app.kubernetes.io/component: rabbitmq-operator
           app.kubernetes.io/name: rabbitmq-cluster-operator
           app.kubernetes.io/part-of: rabbitmq

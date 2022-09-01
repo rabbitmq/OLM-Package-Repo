@@ -93,7 +93,12 @@ spec:
         - serviceAccountName: single-active-consumer-operator-controller-manager
   
       deployments:
-        - name: single-active-consumer-operator-controller-manager
+        - label:
+            app.kubernetes.io/component: rabbitmq-operator
+            app.kubernetes.io/name: single-active-consumer-operator
+            app.kubernetes.io/part-of: rabbitmq
+            control-plane: controller-manager
+          name: single-active-consumer-operator-controller-manager
 
   installModes:
     - type: OwnNamespace

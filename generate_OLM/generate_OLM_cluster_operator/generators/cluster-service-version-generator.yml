@@ -76,8 +76,11 @@ spec:
         - serviceAccountName: rabbitmq-cluster-operator
 
       deployments:
-        - name: rabbitmq-cluster-operator
-
+      - label:
+          app.kubernetes.io/component: rabbitmq-operator
+          app.kubernetes.io/name: rabbitmq-cluster-operator
+          app.kubernetes.io/part-of: rabbitmq
+        name: rabbitmq-cluster-operator
   installModes:
     - type: OwnNamespace
       supported: true

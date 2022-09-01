@@ -20,7 +20,7 @@ spec:
   description: "## About the managed application\n\nRabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol, MQ Telemetry Transport, and other protocols.\n## About this Operator\nThis Kubernetes operator serves as an automated orchestration layer to create a single-active-consumer topology on a RabbitMQ Cluster with SuperStreams.  In this topology, a single SuperStream can be partitioned into smaller partition streams; the purpose of this operator is to ensure that for each partition,  exactly one application Pod is consuming from the partition stream at any given time.       \n## Prerequisites for enabling this Operator\nThe operator works on top of the RabbitMQ cluster operator and the RabbitMQ messaging topology operator, so these needs to be installed before using this operator.\n"
   maturity: beta
   version: 0.2.2
-  replaces: rabbitmq-single-active-operator.v0.2.2
+  replaces: ""
   skips: []
   minKubeVersion: 1.19.0
   keywords: []
@@ -170,7 +170,12 @@ spec:
           - update
           - watch
       deployments:
-      - name: single-active-consumer-operator-controller-manager
+      - label:
+          app.kubernetes.io/component: rabbitmq-operator
+          app.kubernetes.io/name: single-active-consumer-operator
+          app.kubernetes.io/part-of: rabbitmq
+          control-plane: controller-manager
+        name: single-active-consumer-operator-controller-manager
         spec:
           replicas: 1
           selector:

@@ -306,7 +306,11 @@ spec:
         - serviceAccountName: messaging-topology-operator
   
       deployments:
-        - name: messaging-topology-operator
+        - label:
+            app.kubernetes.io/component: rabbitmq-operator
+            app.kubernetes.io/name: messaging-topology-operator
+            app.kubernetes.io/part-of: rabbitmq
+          name: messaging-topology-operator
 
   installModes:
     - type: OwnNamespace
