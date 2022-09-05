@@ -7,7 +7,9 @@ spec:
   displayName: devopstales
   publisher: devopstales
   sourceType: grpc
-  image: us.gcr.io/cf-rabbitmq-for-k8s-bunny/rabbitmq-for-kubernetes-olm:0.0.0 
+  secrets: 
+  - regcredtanzu
+  image: us.gcr.io/cf-rabbitmq-for-k8s-bunny/rabbitmq-for-kubernetes-olm-index:0.0.0 
   updateStrategy:
     registryPoll:
       interval: 1m
