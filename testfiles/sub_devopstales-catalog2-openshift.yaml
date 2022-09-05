@@ -1,0 +1,12 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: trivy-operator-2
+  namespace: rabbitmq-system 
+spec:
+  channel: stable 
+  installPlanApproval: Automatic
+  name: rabbitmq-messaging-topology-operator
+  source: devopstales-catalog-2
+  sourceNamespace: openshift-marketplace 
+  startingCSV: rabbitmq-messaging-topology-operator.v1.8.0 
