@@ -9,4 +9,4 @@ spec:
   name: rabbitmq-messaging-topology-operator
   source: devopstales-catalog-2
   sourceNamespace: openshift-marketplace 
-  startingCSV: rabbitmq-messaging-topology-operator.v1.8.0 
+  startingCSV: rabbitmq-messaging-topology-operator.v1.0.0 
