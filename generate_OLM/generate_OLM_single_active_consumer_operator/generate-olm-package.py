@@ -69,7 +69,7 @@ os.system("cp ./tmpmanifests/rabbitmq.clusterserviceversion.yaml " + rabbitmq_cl
 for filename in os.scandir("./manifests_crds/crds"):
     if filename.is_file():
        os.system("cat ./generators/license.yaml > " + rabbitmq_cluster_operator_dir_manifests + "/" + filename.name)
-       os.system("tail -n +2 ./manifests_crds/crds/" + filename.name  + " >> " + rabbitmq_cluster_operator_dir_manifests + "/" + filename.name)
+       os.system("tail -n +1 ./manifests_crds/crds/" + filename.name  + " >> " + rabbitmq_cluster_operator_dir_manifests + "/" + filename.name)
         
 os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
 os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir_metadata)
