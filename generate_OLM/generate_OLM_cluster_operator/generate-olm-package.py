@@ -62,8 +62,8 @@ os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
 os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir+"/metadata")
 
 # Cleanup
-os.system("echo rabbitmq-cluster-operator.v"+version + " >./generators/replace.txt")
-os.system("echo "+version + " >>./generators/replace.txt")
+#os.system("echo rabbitmq-cluster-operator.v"+version + " >./generators/replace.txt")
+#os.system("echo "+version + " >>./generators/replace.txt")
 os.system("rm ./tmpmanifests/*")
 os.system("rm ./overlays/*")
 
