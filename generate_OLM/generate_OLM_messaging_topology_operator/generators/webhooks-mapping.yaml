@@ -230,3 +230,26 @@
       resources:
       - superstreams
     sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    - v1beta1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
+    generateName: vtopicpermission.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-topicpermission
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - topicpermissions
+    sideEffects: None
+  
