@@ -160,7 +160,7 @@ spec:
         displayName: TopicPermission
         kind: TopicPermission
         version: v1beta1
-        description: Permission
+        description: TopicPermission
         resources:
           - version: v1
             kind: Deployment
