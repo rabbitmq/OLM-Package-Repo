@@ -155,6 +155,26 @@ spec:
             kind: ConfigMap
         specDescriptors: []
         statusDescriptors: []
+      - name: topicpermissions.rabbitmq.com
+        displayName: TopicPermission
+        kind: TopicPermission
+        version: v1beta1
+        description: Permission
+        resources:
+          - version: v1
+            kind: Deployment
+          - version: v1
+            kind: Service
+          - version: v1
+            kind: ReplicaSet
+          - version: v1
+            kind: Pod
+          - version: v1
+            kind: Secret
+          - version: v1
+            kind: ConfigMap
+        specDescriptors: []
+        statusDescriptors: []
       - name: policies.rabbitmq.com
         displayName: Policy
         kind: Policy
