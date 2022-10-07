@@ -156,7 +156,7 @@ spec:
             kind: ConfigMap
         specDescriptors: []
         statusDescriptors: []
-      - name: topicpermission.rabbitmq.com
+      - name: topicpermissions.rabbitmq.com
         displayName: TopicPermission
         kind: TopicPermission
         version: v1beta1
