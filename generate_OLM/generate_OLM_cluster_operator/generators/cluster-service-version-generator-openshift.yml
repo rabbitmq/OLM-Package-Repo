@@ -5,7 +5,7 @@ metadata:
   name: #@ data.values.name
   namespace: placeholder
   annotations:
-    alm-examples: '[{"apiVersion":"rabbitmq.com/v1beta1","kind":"RabbitmqCluster","metadata":{"name":"hello-world"}, "spec":{"override": {"statefulset": {"spec": { "template": { "spec": { "containers": "[]", "securityContext": {}}}}}}}}]'
+    alm-examples: '[{"apiVersion":"rabbitmq.com/v1beta1","kind":"RabbitmqCluster","metadata":{"name":"hello-world"}, "spec":{"override": {"statefulset": {"spec": { "template": { "spec": { "containers": [], "securityContext": {}}}}}}}}]'
     certified: "false"
     createdAt: "2022-06-15T13:28:40+00:00"
     description: "RabbitMQ Cluster Operator developed and maintained by the RabbitMQ team automates the provisioning, management, of RabbitMQ clusters running on Kubernetes. \n"
