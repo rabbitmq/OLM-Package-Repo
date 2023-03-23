@@ -1,2 +1,2 @@
-rabbitmq-messaging-topology-operator.v1.10.1
-1.10.1
+rabbitmq-messaging-topology-operator.v1.10.2
+1.10.2
