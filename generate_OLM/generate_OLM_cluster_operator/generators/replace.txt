@@ -1,2 +1,2 @@
-rabbitmq-cluster-operator.v2.2.0
-2.2.0
+rabbitmq-cluster-operator.v2.3.0
+2.3.0
