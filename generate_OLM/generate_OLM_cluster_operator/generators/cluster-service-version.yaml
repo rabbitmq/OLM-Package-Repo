@@ -26,8 +26,10 @@ spec:
   version: 1.14.0
   replaces: ""
   skips: []
-  minKubeVersion: ""
-  keywords: []
+  support: Community based
+  keywords:
+  - rabbitmq
+  - messaging
   maintainers:
   - name: Daniele Palaia
     email: dpalaia@vmware.com

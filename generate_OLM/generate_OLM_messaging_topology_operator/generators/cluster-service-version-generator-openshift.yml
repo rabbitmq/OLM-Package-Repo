@@ -53,8 +53,10 @@ spec:
   maturity: stable
   version: #@ data.values.version
   replaces: #@ data.values.replaces
-  skips: []
-  keywords: []
+  support: Community based
+  keywords:
+  - rabbitmq
+  - messaging
   maintainers:
     - name: VMware Tanzu
       email: rabbitmq-platform@groups.vmware.com

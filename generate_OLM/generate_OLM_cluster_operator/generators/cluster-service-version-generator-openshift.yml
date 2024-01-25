@@ -26,8 +26,10 @@ spec:
   version: #@ data.values.version
   replaces: #@ data.values.replaces
   skips: []
-  minKubeVersion: 1.19.0
-  keywords: []
+  support: Community based
+  keywords:
+  - rabbitmq
+  - messaging
   maintainers:
   - name: VMware Tanzu
     email: rabbitmq-platform@groups.vmware.com
