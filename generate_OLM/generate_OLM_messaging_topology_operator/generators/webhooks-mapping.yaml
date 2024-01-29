@@ -109,6 +109,27 @@
     - v1
     containerPort: 9443
     deploymentName: messaging-topology-operator
+    generateName: voperatorpolicy.kb.io
+    targetPort: webhook-server
+    timeoutSeconds: 2
+    webhookPath: /validate-rabbitmq-com-v1beta1-operatorpolicy
+    failurePolicy: Fail
+    rules:
+    - apiGroups:
+      - rabbitmq.com
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - operatorpolicies
+    sideEffects: None
+  - type: ValidatingAdmissionWebhook
+    admissionReviewVersions:
+    - v1
+    containerPort: 9443
+    deploymentName: messaging-topology-operator
     generateName: vqueue.kb.io
     targetPort: webhook-server
     timeoutSeconds: 2
