@@ -1,11 +1,11 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
-  name: devopstales-catalog-2
+  name: rabbitmq-dev-catalog-2
   namespace: openshift-marketplace 
 spec:
-  displayName: devopstales
-  publisher: devopstales
+  displayName: rabbitmq
+  publisher: rabbitmq
   sourceType: grpc
   image: rabbitmqoperator/rabbitmq-for-kubernetes-messaging-olm-index:0.0.0
   updateStrategy:

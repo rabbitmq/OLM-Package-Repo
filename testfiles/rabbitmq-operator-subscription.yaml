@@ -1,12 +1,12 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: trivy-operator-3
+  name: rabbitmq-operator
   namespace: rabbitmq-system-olm 
 spec:
   channel: stable 
   installPlanApproval: Automatic
-  name: rabbitmq-single-active-consumer-operator 
-  source: devopstales-catalog-3
+  name: rabbitmq-cluster-operator
+  source: rabbitmq-dev-catalog
   sourceNamespace: openshift-marketplace 
-  startingCSV: rabbitmq-single-active-consumer-operator.v0.0.0 
+  startingCSV: rabbitmq-cluster-operator.v0.0.0 
