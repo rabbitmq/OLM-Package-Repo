@@ -7,7 +7,7 @@ spec:
   displayName: rabbitmq
   publisher: rabbitmq
   sourceType: grpc
-  image: rabbitmqoperator/rabbitmq-for-kubernetes-messaging-olm-index:0.0.0
+  image: rabbitmqoperator/rabbitmq-for-kubernetes-olm-messaging-topology-operator-index:0.0.0
   updateStrategy:
     registryPoll:
       interval: 1m
