@@ -9,4 +9,4 @@ spec:
   name: rabbitmq-cluster-operator
   source: rabbitmq-dev-catalog
   sourceNamespace: openshift-marketplace 
-  startingCSV: rabbitmq-cluster-operator.v0.0.0 
+  startingCSV: rabbitmq-cluster-operator.v0.0.0
