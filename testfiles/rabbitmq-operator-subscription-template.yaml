@@ -1,3 +1,4 @@
+#@ load("@ytt:data", "data")
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -9,4 +10,4 @@ spec:
   name: rabbitmq-cluster-operator
   source: rabbitmq-dev-catalog
   sourceNamespace: openshift-marketplace 
-  startingCSV: rabbitmq-cluster-operator.v0.0.0
+  startingCSV: #@ data.values.csv

@@ -1,13 +1,14 @@
+#@ load("@ytt:data", "data")
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
-  name: rabbitmq-dev-catalog-2
+  name: rabbitmq-dev-catalog
   namespace: openshift-marketplace 
 spec:
   displayName: rabbitmq
   publisher: rabbitmq
   sourceType: grpc
-  image: rabbitmqoperator/rabbitmq-for-kubernetes-olm-messaging-topology-operator-index:0.0.0
+  image: #@ data.values.image
   updateStrategy:
     registryPoll:
       interval: 1m

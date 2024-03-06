@@ -3,8 +3,12 @@ set -euo pipefail
 
 VERSION=${1:-"0.0.0"}
 
-sed -i -e "s/0.0.0/"$VERSION"/g" $PWD/OLM-Package-Repo/testfiles/rabbitmq-cluster-operator-catalog.yaml
-sed -i -e "s/0.0.0/"$VERSION"/g" $PWD/OLM-Package-Repo/testfiles/rabbitmq-operator-subscription.yaml
+export IMAGE="quay.io/rabbitmqoperator/rabbitmq-for-kubernetes-olm-cluster-operator-index:$VERSION" 
+export CSV="rabbitmq-cluster-operator.v$VERSION"  
+
+ytt -f $PWD/OLM-Package-Repo/testfiles/rabbitmq-cluster-operator-catalog-template.yaml --data-value-yaml image="$IMAGE" > $PWD/OLM-Package-Repo/testfiles/rabbitmq-cluster-operator-catalog.yaml
+ytt -f $PWD/OLM-Package-Repo/testfiles/rabbitmq-operator-subscription-template.yaml --data-value-yaml csv="$CSV" > $PWD/OLM-Package-Repo/testfiles/rabbitmq-operator-subscription.yaml
+
 
 kubectl delete csv rabbitmq-cluster-operator.v"$VERSION" -n rabbitmq-system-olm
 kubectl delete -f $PWD/OLM-Package-Repo/testfiles/rabbitmq-operator-subscription.yaml
