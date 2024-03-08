@@ -1,7 +1,6 @@
 import os
 import sys
 
-# insert at position 1 in the path, as 0 is the path of this file.
 sys.path.insert(1, './../../common_code')
 
 from common_functions import create_overlay
@@ -21,10 +20,8 @@ replaces = f.readline().strip()
 oldversion= f.readline().strip()
 f.close()
 
-replace_rabbitmq_cluster_operator_image("./generators/cluster-service-version-generator.yml","rabbitmqoperator/cluster-operator:0.0.0", "rabbitmqoperator/cluster-operator:"+version)
-replace_rabbitmq_cluster_operator_image("./generators/cluster-service-version-generator-openshift.yml","rabbitmqoperator/cluster-operator:0.0.0", "rabbitmqoperator/cluster-operator:"+version)
 # Apply version to the service-version generator
-ytt_command_add_version = "ytt -f ./generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-cluster-operator.v"+version+" --data-value-yaml version="+version+ " --data-value-yaml replaces="+replaces+ "> ./tmpmanifests/cluster-service-version-generator.yaml"
+ytt_command_add_version = "ytt -f ./generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-cluster-operator.v"+version+" --data-value-yaml version="+version+ " --data-value-yaml image=rabbitmqoperator/cluster-operator:"+version+ " --data-value-yaml replaces="+replaces+ "> ./tmpmanifests/cluster-service-version-generator.yaml"
 os.system(ytt_command_add_version)
 
 # Create a copy of the cluster operator and add --- at the end of the file
@@ -62,12 +59,11 @@ os.system("cp ./generators/bundle.Dockerfile " + rabbitmq_cluster_operator_dir)
 os.system("cp ./generators/annotations.yaml " + rabbitmq_cluster_operator_dir+"/metadata")
 
 # Cleanup
-#os.system("echo rabbitmq-cluster-operator.v"+version + " >./generators/replace.txt")
-#os.system("echo "+version + " >>./generators/replace.txt")
 os.system("rm ./tmpmanifests/*")
 os.system("rm ./overlays/*")
 
-
+# Revert generator files
+os.system("rm generators/cluster-operator.yaml")
 
 
 
