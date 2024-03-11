@@ -6,13 +6,20 @@ sys.path.insert(1, './../common_code')
 from .utils import create_overlay
 from .utils import replace_rabbitmq_cluster_operator_version_overlay
 from .utils import replace_rabbitmq_cluster_operator_image
+import logging
 
 def create_cluster_operator_bundle(operator_release_file, version, output_directory):
 
+   logger = logging.getLogger(__name__)
+   logger.setLevel(logging.INFO)
+
+   logger.info("Replacing replace version to manifest")
    get_replace_version(version)
 
+   logger.info("Creating and finalizing ytt overlays")
    create_and_finalize_overlays(version, operator_release_file)
 
+   logger.info("Creating and olm bundle")
    create_olm_bundle(version, output_directory)
 
 

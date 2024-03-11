@@ -1,18 +1,24 @@
 import os
 import sys
+import logging
 
 from .utils import create_overlay
 from .utils import replace_rabbitmq_cluster_operator_version_overlay
 from .utils import replace_rabbitmq_cluster_operator_image
 from .utils import replace_if_rabbitmq_webhook
 
-
 def create_messaging_topology_operator_bundle(operator_release_file, version, output_directory):
 
+   logger = logging.getLogger(__name__)
+   logger.setLevel(logging.INFO)
+
+   logger.info("Replacing replace version to manifest")
    get_replace_version(version)
 
+   logger.info("Creating and finalizing ytt overlays")
    create_and_finalize_overlays(version, operator_release_file)
 
+   logger.info("Creating and olm bundle")
    create_olm_bundle(version, output_directory)
 
 
@@ -28,7 +34,7 @@ def get_replace_version(version):
    f.close()
 
    # Apply version to the service-version generator
-   ytt_command_add_version = "ytt -f ./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-messaging-topology-operator.v"+version+"  --data-value-yaml image=rabbitmqoperator/messaging-topology-operator:"+version+ " --data-value-yaml version="+version+ " --data-value-yaml replaces="+replaces+ "> ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-generator.yaml"
+   ytt_command_add_version = "ytt -f ./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/topology-service-version-generator.yml --data-value-yaml name=rabbitmq-messaging-topology-operator.v"+version+"  --data-value-yaml image=rabbitmqoperator/messaging-topology-operator:"+version+ " --data-value-yaml version="+version+ " --data-value-yaml replaces="+replaces+ "> ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-generator.yaml"
    os.system(ytt_command_add_version)
 
 def create_and_finalize_overlays(version, operator_release_file):

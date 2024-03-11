@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "rabbitmq_olm_package_repo"
-version = "0.0.1"
-description = ""
+version = "0.1.0"
+description = "A script to generate OLM bundle starting from operator manifest files"
 authors = ["RabbitMQ Platform team"]
 license = "MIT"
 readme = "README.md"
