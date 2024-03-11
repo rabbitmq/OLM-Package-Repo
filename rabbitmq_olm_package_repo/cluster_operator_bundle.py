@@ -1,11 +1,6 @@
 import os
 import sys
-
-sys.path.insert(1, './../common_code')
-
-from .utils import create_overlay
-from .utils import replace_rabbitmq_cluster_operator_version_overlay
-from .utils import replace_rabbitmq_cluster_operator_image
+from .utils import create_overlay, replace_rabbitmq_cluster_operator_version_overlay, replace_rabbitmq_cluster_operator_image, get_operator_last_tag
 import logging
 
 def create_cluster_operator_bundle(operator_release_file, version, output_directory):
@@ -13,8 +8,13 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
    logger = logging.getLogger(__name__)
    logger.setLevel(logging.INFO)
 
+   logger.info("Get Operator last tag")
+   replaces = get_operator_last_tag("cluster-operator")
+
+   print("replace is: " + replaces)
+
    logger.info("Replacing replace version to manifest")
-   get_replace_version(version)
+   set_replace_version(version, replaces)
 
    logger.info("Creating and finalizing ytt overlays")
    create_and_finalize_overlays(version, operator_release_file)
@@ -23,12 +23,7 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
    create_olm_bundle(version, output_directory)
 
 
-def get_replace_version(version):
-
-   f = open("./rabbitmq_olm_package_repo/generators/cluster_operator_generators/replace.txt")
-   replaces = f.readline().strip()
-   old_version= f.readline().strip()
-   f.close()
+def set_replace_version(version, replaces):
    ytt_command_add_version = "ytt -f ./rabbitmq_olm_package_repo/generators/cluster_operator_generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-cluster-operator.v"+version+" --data-value-yaml version="+version+ " --data-value-yaml image=rabbitmqoperator/cluster-operator:"+version+ " --data-value-yaml replaces="+replaces+ "> ./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator-service-version-generator.yaml"
    os.system(ytt_command_add_version)
 

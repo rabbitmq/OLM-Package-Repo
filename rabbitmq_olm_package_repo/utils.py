@@ -68,4 +68,19 @@ def get_operator_name(file_input):
             return OperatorType.MESSAGING_TOPOLOGY_OPERATOR
 
     return OperatorType.CLUSTER_OPERATOR
-        
+
+
+def get_operator_last_tag(operator):
+
+    last_tag_file = "./last_tag_file"
+    os.system("curl https://api.github.com/repos/rabbitmq/" + operator + "/tags | jq -r '.[0].name' > " + last_tag_file)
+
+    with open(last_tag_file) as f:
+        for line in f:
+            pass
+
+    last_line = "rabbitmq-" + operator + "." + line.strip()
+
+    os.system("rm ./last_tag_file")
+   
+    return last_line

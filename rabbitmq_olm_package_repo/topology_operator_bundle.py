@@ -6,32 +6,27 @@ from .utils import create_overlay
 from .utils import replace_rabbitmq_cluster_operator_version_overlay
 from .utils import replace_rabbitmq_cluster_operator_image
 from .utils import replace_if_rabbitmq_webhook
+from .utils import get_operator_last_tag
 
 def create_messaging_topology_operator_bundle(operator_release_file, version, output_directory):
 
    logger = logging.getLogger(__name__)
    logger.setLevel(logging.INFO)
 
-   logger.info("Replacing replace version to manifest")
-   get_replace_version(version)
+   logger.info("Get Operator last tag")
+   replaces = get_operator_last_tag("messaging-topology-operator")
 
-   logger.info("Creating and finalizing ytt overlays")
+   logger.info("Replacing replace version to manifest")
+   set_replace_version(version, replaces)
+
+   logger.info("Creating and finalizing ytt rabbitmq_olm_package_repo/overlays")
    create_and_finalize_overlays(version, operator_release_file)
 
    logger.info("Creating and olm bundle")
    create_olm_bundle(version, output_directory)
 
 
-def get_replace_version(version):
-   operator_release_file = sys.argv[1] 
-   version = sys.argv[2]
-   output_directory = sys.argv[3]
-
-   # Manage update field to update versioning
-   f = open("./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/replace.txt")
-   replaces = f.readline().strip()
-   oldversion= f.readline().strip()
-   f.close()
+def set_replace_version(version, replaces):
 
    # Apply version to the service-version generator
    ytt_command_add_version = "ytt -f ./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/topology-service-version-generator.yml --data-value-yaml name=rabbitmq-messaging-topology-operator.v"+version+"  --data-value-yaml image=rabbitmqoperator/messaging-topology-operator:"+version+ " --data-value-yaml version="+version+ " --data-value-yaml replaces="+replaces+ "> ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-generator.yaml"
@@ -39,9 +34,9 @@ def get_replace_version(version):
 
 def create_and_finalize_overlays(version, operator_release_file):
 
-   create_overlay(operator_release_file, "kind: Role", "rules:", "---", "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-permission-generator.yaml", "./overlays/topology-operator-overlay-permission.yaml")       
-   create_overlay(operator_release_file, "kind: ClusterRole", "rules:", "---", "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-cluster-permission-generator.yaml", "./overlays/topology-operator-overlay-permission.yaml")    
-   create_overlay(operator_release_file, "kind: Deployment", "spec:", "---", "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-deployment-generator.yaml", "./overlays/topology-operator-overlay-deployment.yaml")  
+   create_overlay(operator_release_file, "kind: Role", "rules:", "---", "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-permission-generator.yaml", "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml")       
+   create_overlay(operator_release_file, "kind: ClusterRole", "rules:", "---", "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-cluster-permission-generator.yaml", "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml")    
+   create_overlay(operator_release_file, "kind: Deployment", "spec:", "---", "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-deployment-generator.yaml", "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-deployment.yaml")  
 
 
    replace_rabbitmq_cluster_operator_version_overlay("./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml", "rabbitmq-messaging-topology-operator.v*", "rabbitmq-messaging-topology-operator.v"+version)

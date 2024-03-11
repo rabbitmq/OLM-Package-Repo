@@ -25,8 +25,8 @@ def main():
 
     # create temporary folder if not exists
     logger.info("creating temporary folders")
-    os.system("mkdir -p ./overlays")
-    os.system("mkdir -p ./tmpmanifests")
+    os.system("mkdir -p ./rabbitmq_olm_package_repo/overlays")
+    os.system("mkdir -p ./rabbitmq_olm_package_repo/tmpmanifests")
 
 
     if operator_type == OperatorType.CLUSTER_OPERATOR:
@@ -49,8 +49,8 @@ def main():
         logger.warning("Input manifest not valid: It doesn't match a cluster operator or messaging operator manifest")
 
     logger.info("Clean up")
-    os.system("rm -fR ./overlays")
-    os.system("rm -fR ./tmpmanifests")
+    os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
+    os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
 
 # start main function
 if __name__ == "__main__":
