@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "rabbitmq-olm-package-repo"
+name = "rabbitmq_olm_package_repo"
 version = "0.0.1"
-description = "A simple python script to generate OLM (Operator Lifecyle Manager) bundles"
-authors = ["RabbitMQ-Service-Operator-team"]
+description = ""
+authors = ["RabbitMQ Platform team"]
 license = "MIT"
 readme = "README.md"
 
@@ -13,3 +13,6 @@ python = "^3.12"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+generate_bundle = "rabbitmq_olm_package_repo:main"

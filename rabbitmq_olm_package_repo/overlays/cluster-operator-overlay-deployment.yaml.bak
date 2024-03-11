@@ -1,0 +1,47 @@
+#@ load("@ytt:data", "data")
+#@ load("@ytt:overlay", "overlay")
+#@ clusterserviceversion = overlay.subset({"kind": "ClusterServiceVersion"})
+#@ cluster_operator = overlay.subset({"metadata": {"name": "rabbitmq-cluster-operator.v*"}})
+#@overlay/match by=overlay.and_op(clusterserviceversion, cluster_operator),expects="1+"
+---
+spec:
+  install:
+    spec:
+      deployments:
+        #@overlay/match by=overlay.subset({"name": "rabbitmq-cluster-operator"}),expects="1+"
+        -
+          #@overlay/match missing_ok=True
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app.kubernetes.io/name: rabbitmq-cluster-operator
+            template:
+              metadata:
+                labels:
+                  app.kubernetes.io/component: rabbitmq-operator
+                  app.kubernetes.io/name: rabbitmq-cluster-operator
+                  app.kubernetes.io/part-of: rabbitmq
+              spec:
+                containers:
+                - command:
+                  - /manager
+                  env:
+                  - name: OPERATOR_NAMESPACE
+                    valueFrom:
+                      fieldRef:
+                        fieldPath: metadata.namespace
+                  image: rabbitmqoperator/cluster-operator:2.7.0
+                  name: operator
+                  ports:
+                  - containerPort: 9782
+                    name: metrics
+                    protocol: TCP
+                  resources:
+                    limits:
+                      cpu: 200m
+                      memory: 500Mi
+                    requests:
+                      cpu: 200m
+                      memory: 500Mi
+                serviceAccountName: rabbitmq-cluster-operator

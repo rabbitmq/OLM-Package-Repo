@@ -1,5 +1,10 @@
 import os
 import fileinput
+from enum import Enum
+
+class OperatorType(Enum):
+    CLUSTER_OPERATOR=1
+    MESSAGING_TOPOLOGY_OPERATOR=2
 
 # This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
 def create_overlay(release_file, kind, firstString, endString, file_generator, file_output):
@@ -55,3 +60,12 @@ def replace_if_rabbitmq_webhook(file_input):
         for line in file:
            print(line.replace("- admissionReviewVersions:", "  admissionReviewVersions:"), end='')
 
+
+def get_operator_name(file_input):
+
+    with open(file_input) as f:
+        if 'rabbitmqoperator/messaging-topology-operator' in f.read():
+            return OperatorType.MESSAGING_TOPOLOGY_OPERATOR
+
+    return OperatorType.CLUSTER_OPERATOR
+        
