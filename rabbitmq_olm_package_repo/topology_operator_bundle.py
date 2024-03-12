@@ -22,16 +22,16 @@ def create_messaging_topology_operator_bundle(
     replaces = get_operator_last_tag("messaging-topology-operator")
 
     logger.info("Replacing replace version to manifest")
-    set_replace_version(version, replaces)
+    _set_replace_version(version, replaces)
 
     logger.info("Creating and finalizing ytt rabbitmq_olm_package_repo/overlays")
-    create_and_finalize_overlays(version, operator_release_file)
+    _create_and_finalize_overlays(version, operator_release_file)
 
     logger.info("Creating and olm bundle")
-    create_olm_bundle(version, output_directory)
+    _create_olm_bundle(version, output_directory)
 
 
-def set_replace_version(version, replaces):
+def _set_replace_version(version, replaces):
 
     # Apply version to the service-version generator
     ytt_command_add_version = (
@@ -48,7 +48,7 @@ def set_replace_version(version, replaces):
     os.system(ytt_command_add_version)
 
 
-def create_and_finalize_overlays(version, operator_release_file):
+def _create_and_finalize_overlays(version, operator_release_file):
 
     create_overlay(
         operator_release_file,
@@ -110,7 +110,7 @@ def create_and_finalize_overlays(version, operator_release_file):
     )
 
 
-def create_olm_bundle(version, output_directory):
+def _create_olm_bundle(version, output_directory):
 
     rabbitmq_cluster_operator_dir = output_directory + "/" + version
     rabbitmq_cluster_operator_dir_manifests = (
