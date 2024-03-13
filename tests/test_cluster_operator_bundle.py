@@ -20,11 +20,15 @@ logger = logging.getLogger(__name__)
 
 def test_cluster_operator_bundle():
 
-    cluster_operator_release_file = (
+    operator_release_file = (
         "./rabbitmq_olm_package_repo/manifests_crds/cluster-operator.yaml"
     )
     version = "2.8.0"
     output_directory = "./tests/test-bundle"
+
+    cluster_operator_release_file = "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/cluster-operator.yaml"
+    os.system("cp " + operator_release_file + " " + cluster_operator_release_file)
+    os.system("echo --- >> " + cluster_operator_release_file)
 
     os.system("mkdir -p ./rabbitmq_olm_package_repo/overlays")
     os.system("mkdir -p ./rabbitmq_olm_package_repo/tmpmanifests")
@@ -40,6 +44,7 @@ def test_cluster_operator_bundle():
     os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
     os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
     os.system("rm -fR " + output_directory)
+    os.system("rm  " + cluster_operator_release_file)
 
 
 # Check at least that the crd has been generated and two main fields (kind and metadata->name are created)

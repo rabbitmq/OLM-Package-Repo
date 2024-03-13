@@ -30,6 +30,7 @@ def test_cluster_operator_bundle():
         "federations.rabbitmq.com",
         "permissions.rabbitmq.com",
         "policies.rabbitmq.com",
+        "operatorpolicies.rabbitmq.com",
         "queues.rabbitmq.com",
         "schemareplications.rabbitmq.com",
         "shovels.rabbitmq.com",
@@ -51,6 +52,7 @@ def test_cluster_operator_bundle():
         "rabbitmq.com_topicpermissions.yaml",
         "rabbitmq.com_users.yaml",
         "rabbitmq.com_vhosts.yaml",
+        "rabbitmq.com_operatorpolicies.yaml",
     ]
 
     create_messaging_topology_operator_bundle(

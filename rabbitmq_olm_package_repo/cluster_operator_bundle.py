@@ -68,7 +68,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         operator_release_file,
         "kind: Deployment",
         "spec:",
-        "terminationGracePeriodSeconds",
+        "---",
         "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/overlay-deployment-generator.yaml",
         "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-deployment.yaml",
     )
