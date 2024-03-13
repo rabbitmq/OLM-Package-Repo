@@ -18,8 +18,6 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
     logger.info("Get Operator last tag")
     replaces = get_operator_last_tag("cluster-operator")
 
-    print("replace is: " + replaces)
-
     logger.info("Replacing replace version to manifest")
     _set_replace_version(version, replaces)
 
@@ -30,6 +28,7 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
     _create_olm_bundle(version, output_directory)
 
 
+# set the replace version in the manifest
 def _set_replace_version(version, replaces):
     ytt_command_add_version = (
         "ytt -f ./rabbitmq_olm_package_repo/generators/cluster_operator_generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-cluster-operator.v"
@@ -45,6 +44,7 @@ def _set_replace_version(version, replaces):
     os.system(ytt_command_add_version)
 
 
+# creates overlay for permission, and cluster-operator-permission
 def _create_and_finalize_overlays(version, operator_release_file):
 
     # Finalize the overlay
@@ -104,6 +104,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
     )
 
 
+# Creates the final bundle structure
 def _create_olm_bundle(version, output_directory):
     rabbitmq_cluster_operator_dir = output_directory + "/" + version
     rabbitmq_cluster_operator_dir_manifests = (

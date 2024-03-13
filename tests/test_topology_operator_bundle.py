@@ -8,6 +8,7 @@ import yaml
 
 from rabbitmq_olm_package_repo import (
     create_messaging_topology_operator_bundle,
+    get_operator_last_tag,
     main,
 )
 
@@ -102,16 +103,21 @@ def validate_operator_manifest(output_directory, version):
         output_directory + "/manifests/rabbitmq.clusterserviceversion.yaml"
     )
 
+    replaces = get_operator_last_tag("messaging-topology-operator")
+
     with open(
         output_directory + "/manifests/rabbitmq.clusterserviceversion.yaml"
     ) as stream:
         try:
             manifest = yaml.safe_load(stream)
+            # basic checks
             assert manifest["kind"] == "ClusterServiceVersion"
             assert (
                 manifest["metadata"]["name"]
                 == "rabbitmq-messaging-topology-operator.v" + version
             )
+
+            assert manifest["spec"]["replaces"] == replaces
 
             # validate fields we have overlayed
             assert (

@@ -9,6 +9,7 @@ import yaml
 
 from rabbitmq_olm_package_repo import (
     create_cluster_operator_bundle,
+    get_operator_last_tag,
     main,
 )
 
@@ -64,6 +65,8 @@ def validate_operator_manifest(output_directory, version):
         output_directory + "/manifests/rabbitmq.clusterserviceversion.yaml"
     )
 
+    replaces = get_operator_last_tag("cluster-operator")
+
     with open(
         output_directory + "/manifests/rabbitmq.clusterserviceversion.yaml"
     ) as stream:
@@ -73,6 +76,9 @@ def validate_operator_manifest(output_directory, version):
             assert (
                 manifest["metadata"]["name"] == "rabbitmq-cluster-operator.v" + version
             )
+
+            assert manifest["spec"]["replaces"] == replaces
+
             # Check field we overlayed
             assert (
                 manifest["spec"]["install"]["spec"]["deployments"][0]["name"]
