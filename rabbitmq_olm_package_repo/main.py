@@ -36,7 +36,9 @@ def main():
 
     if operator_type == OperatorType.CLUSTER_OPERATOR:
         logger.info("Creating OLM Bundle for RabbitMQ cluster operator")
-        cluster_operator_release_file = "./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator.yaml"
+        cluster_operator_release_file = (
+            "./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator.yaml"
+        )
         os.system("cp " + operator_release_file + " " + cluster_operator_release_file)
         os.system('echo "\n---" >> ' + cluster_operator_release_file)
         create_cluster_operator_bundle(
@@ -45,7 +47,9 @@ def main():
 
     elif operator_type == OperatorType.MESSAGING_TOPOLOGY_OPERATOR:
         logger.info("Creating OLM Bundle for RabbitMQ messaging topology operator")
-        messaging_topology_operator_release_file = "./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator.yaml"
+        messaging_topology_operator_release_file = (
+            "./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator.yaml"
+        )
         os.system(
             "cp "
             + operator_release_file

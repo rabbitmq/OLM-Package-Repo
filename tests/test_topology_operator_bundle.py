@@ -59,6 +59,7 @@ def test_cluster_operator_bundle():
         topology_operator_release_file, version, output_directory
     )
 
+    validate_all_bundle(output_directory + "/" + version)
     validate_bundle_struct(output_directory + "/" + version)
     validate_operator_crds(
         output_directory + "/" + version, crds_file_names, crds_names
@@ -68,6 +69,20 @@ def test_cluster_operator_bundle():
     os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
     os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
     os.system("rm -fR " + output_directory)
+
+
+# validate the bundle with operator-sdk
+def validate_all_bundle(output_directory):
+
+    os.system(
+        "operator-sdk bundle validate "
+        + output_directory
+        + " --select-optional suite=operatorframework > output_result 2>&1"
+    )
+    with open("output_result") as f:
+        assert "All validation tests have completed successfully" in f.read()
+    f.close()
+    os.system("rm output_result")
 
 
 # Check at least that the crd has been generated and two main fields (kind and metadata->name are created)

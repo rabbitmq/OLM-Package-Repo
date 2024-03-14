@@ -26,17 +26,20 @@ def test_cluster_operator_bundle():
     version = "2.8.0"
     output_directory = "./tests/test-bundle"
 
-    cluster_operator_release_file = "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/cluster-operator.yaml"
-    os.system("cp " + operator_release_file + " " + cluster_operator_release_file)
-    os.system("echo --- >> " + cluster_operator_release_file)
-
     os.system("mkdir -p ./rabbitmq_olm_package_repo/overlays")
     os.system("mkdir -p ./rabbitmq_olm_package_repo/tmpmanifests")
+
+    cluster_operator_release_file = (
+        "./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator.yaml"
+    )
+    os.system("cp " + operator_release_file + " " + cluster_operator_release_file)
+    os.system("echo --- >> " + cluster_operator_release_file)
 
     create_cluster_operator_bundle(
         cluster_operator_release_file, version, output_directory
     )
 
+    validate_all_bundle(output_directory + "/" + version)
     validate_bundle_struct(output_directory + "/" + version)
     validate_operator_crd(output_directory + "/" + version)
     validate_operator_manifest(output_directory + "/" + version, version)
@@ -44,7 +47,20 @@ def test_cluster_operator_bundle():
     os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
     os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
     os.system("rm -fR " + output_directory)
-    os.system("rm  " + cluster_operator_release_file)
+
+
+# validate the bundle with operator-sdk
+def validate_all_bundle(output_directory):
+
+    os.system(
+        "operator-sdk bundle validate "
+        + output_directory
+        + " --select-optional suite=operatorframework > output_result 2>&1"
+    )
+    with open("output_result") as f:
+        assert "All validation tests have completed successfully" in f.read()
+    f.close()
+    os.system("rm output_result")
 
 
 # Check at least that the crd has been generated and two main fields (kind and metadata->name are created)
