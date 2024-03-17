@@ -74,7 +74,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "kind: ClusterRole",
         "rules:",
         "---",
-        "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/overlay-permission-generator.yaml",
+        "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/overlay-cluster-permission-generator.yaml",
         "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-cluster-permission.yaml",
     )
     create_overlay(
