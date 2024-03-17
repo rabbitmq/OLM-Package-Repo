@@ -27,7 +27,7 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
         _set_replace_version(version, replaces)
 
     else:
-        _set_replace_version(version, replaces)
+    _set_replace_version(version, replaces)
 
     logger.info("Creating and finalizing ytt overlays")
     _create_and_finalize_overlays(version, operator_release_file)
