@@ -74,7 +74,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "rules:",
         "---",
         "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-cluster-permission-generator.yaml",
-        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml",
+        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-cluster-permission.yaml",
     )
     create_overlay(
         operator_release_file,
@@ -91,7 +91,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "rabbitmq-messaging-topology-operator.v" + version,
     )
     replace_rabbitmq_cluster_operator_version_overlay(
-        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml",
+        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-cluster-permission.yaml",
         "rabbitmq-messaging-topology-operator.v*",
         "rabbitmq-messaging-topology-operator.v" + version,
     )
@@ -106,7 +106,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "ytt -f ./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml -f ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-generator.yaml  > ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-permission.yaml"
     )
     os.system(
-        "ytt -f ./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml -f ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-permission.yaml > ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-cluster-permission.yaml"
+        "ytt -f ./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-cluster-permission.yaml -f ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-permission.yaml > ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-cluster-permission.yaml"
     )
 
     os.system(
