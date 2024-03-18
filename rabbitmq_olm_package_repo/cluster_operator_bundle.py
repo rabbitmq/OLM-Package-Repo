@@ -23,11 +23,11 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
     # work around needed for our github action because we don't have a previous version to replace
     # opm is complaining in this case.
     if version == "0.0.0":
-        replaces = ""
+        replaces = " "
         _set_replace_version(version, replaces)
 
     else:
-    _set_replace_version(version, replaces)
+        _set_replace_version(version, replaces)
 
     logger.info("Creating and finalizing ytt overlays")
     _create_and_finalize_overlays(version, operator_release_file)

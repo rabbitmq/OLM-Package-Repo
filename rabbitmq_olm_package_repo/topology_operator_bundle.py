@@ -23,7 +23,11 @@ def create_messaging_topology_operator_bundle(
     replaces = get_operator_last_tag("messaging-topology-operator")
 
     logger.info("Replacing replace version to manifest")
-    _set_replace_version(version, replaces)
+    if version == "0.0.0":
+        replaces = " "
+        _set_replace_version(version, replaces)
+    else:
+        _set_replace_version(version, replaces)
 
     logger.info("Creating and finalizing ytt rabbitmq_olm_package_repo/overlays")
     _create_and_finalize_overlays(version, operator_release_file)
