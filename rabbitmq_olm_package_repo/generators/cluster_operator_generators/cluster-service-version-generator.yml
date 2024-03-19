@@ -92,3 +92,6 @@ spec:
       supported: true
     - type: AllNamespaces
       supported: true
+  relatedImages:
+    - name: docker.io/rabbitmqoperator/cluster-operator
+      image: #@ data.values.image

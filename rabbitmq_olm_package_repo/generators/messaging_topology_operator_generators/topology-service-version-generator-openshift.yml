@@ -363,4 +363,7 @@ spec:
       supported: true
     - type: AllNamespaces
       supported: true
-    
+
+  relatedImages:
+    - name: docker.io/abbitmqoperator/messaging-topology-operator
+      image: #@ data.values.image 

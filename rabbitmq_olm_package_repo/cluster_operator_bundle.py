@@ -131,10 +131,22 @@ def _create_olm_bundle(version, output_directory):
     )
     os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
     os.system("mkdir -p " + rabbitmq_cluster_operator_dir_metadata)
-    os.system(
-        "cp ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml "
-        + rabbitmq_cluster_operator_dir_manifests
-    )
+    if version != "0.0.0":
+        os.system(
+            "kbld -f ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml > ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.kbld.yaml"
+        )
+        os.system(
+            "cp ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.kbld.yaml "
+            + rabbitmq_cluster_operator_dir_manifests
+            + "/rabbitmq.clusterserviceversion.yaml "
+        )
+    else:
+        os.system(
+            "cp ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml "
+            + rabbitmq_cluster_operator_dir_manifests
+            + "/rabbitmq.clusterserviceversion.yaml "
+        )
+
     os.system(
         "cat ./rabbitmq_olm_package_repo/generators/cluster_operator_generators/license.yaml >"
         + rabbitmq_cluster_operator_dir_manifests

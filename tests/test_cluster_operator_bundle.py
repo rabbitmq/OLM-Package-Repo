@@ -23,7 +23,7 @@ def test_cluster_operator_bundle():
     operator_release_file = (
         "./rabbitmq_olm_package_repo/manifests_crds/cluster-operator.yaml"
     )
-    version = "2.8.0"
+    version = "2.7.0"
     output_directory = "./tests/test-bundle"
 
     os.system("mkdir -p ./rabbitmq_olm_package_repo/overlays")

@@ -134,13 +134,26 @@ def _create_olm_bundle(version, output_directory):
     )
     os.system("mkdir -p " + rabbitmq_cluster_operator_dir_manifests)
     os.system("mkdir -p " + rabbitmq_cluster_operator_dir_metadata)
+
     replace_if_rabbitmq_webhook(
         "./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml"
     )
-    os.system(
-        "cp ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml "
-        + rabbitmq_cluster_operator_dir_manifests
-    )
+
+    if version != "1.13.0":
+        os.system(
+            "kbld -f ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml > ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.kbld.yaml"
+        )
+        os.system(
+            "cp ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.kbld.yaml "
+            + rabbitmq_cluster_operator_dir_manifests
+            + "/rabbitmq.clusterserviceversion.yaml "
+        )
+    else:
+        os.system(
+            "cp ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml "
+            + rabbitmq_cluster_operator_dir_manifests
+            + "/rabbitmq.clusterserviceversion.yaml "
+        )
 
     # Adding license tags to custom resource definition files
     for filename in os.scandir(
