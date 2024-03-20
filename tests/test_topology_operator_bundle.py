@@ -18,7 +18,7 @@ from .utils import validate_bundle_struct
 def test_cluster_operator_bundle():
 
     topology_operator_release_file = "./rabbitmq_olm_package_repo/manifests_crds_messaging_topology_operator/messaging-topology-operator-with-certmanager.yaml"
-    version = "1.14.0"
+    version = "1.13.0"
     output_directory = "./tests/test-bundle"
 
     os.system("mkdir -p ./rabbitmq_olm_package_repo/overlays")

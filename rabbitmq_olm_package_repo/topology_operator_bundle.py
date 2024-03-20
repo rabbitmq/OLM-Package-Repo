@@ -139,7 +139,7 @@ def _create_olm_bundle(version, output_directory):
         "./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml"
     )
 
-    if version != "1.13.0":
+    if version != "0.0.0":
         os.system(
             "kbld -f ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.yaml > ./rabbitmq_olm_package_repo/tmpmanifests/rabbitmq.clusterserviceversion.kbld.yaml"
         )
