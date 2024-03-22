@@ -112,10 +112,20 @@ def validate_operator_manifest(output_directory, version):
                 == "rabbitmq-cluster-operator"
             )
             assert (
+                "apiGroups"
+                in manifest["spec"]["install"]["spec"]["permissions"][0]["rules"][0]
+            )
+            assert (
                 manifest["spec"]["install"]["spec"]["clusterPermissions"][0][
                     "serviceAccountName"
                 ]
                 == "rabbitmq-cluster-operator"
+            )
+            assert (
+                "apiGroups"
+                in manifest["spec"]["install"]["spec"]["clusterPermissions"][0][
+                    "rules"
+                ][0]
             )
         except yaml.YAMLError as exc:
             logger.error("Error parsing rabbitmq.clusterserviceversion file")
