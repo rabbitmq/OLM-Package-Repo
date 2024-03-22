@@ -148,10 +148,20 @@ def validate_operator_manifest(output_directory, version):
                 == "messaging-topology-operator"
             )
             assert (
+                "apiGroups"
+                in manifest["spec"]["install"]["spec"]["permissions"][0]["rules"][0]
+            )
+            assert (
                 manifest["spec"]["install"]["spec"]["clusterPermissions"][0][
                     "serviceAccountName"
                 ]
                 == "messaging-topology-operator"
+            )
+            assert (
+                "apiGroups"
+                in manifest["spec"]["install"]["spec"]["clusterPermissions"][0][
+                    "rules"
+                ][0]
             )
 
             # validate webhook

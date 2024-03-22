@@ -1,5 +1,5 @@
-# OLM-Package-Repo-For-Cluster-Operator
-Script to generate OLM (Operator-LifeCycle-Manager) Bundles for RabbitMQ operators </br>
+# OLM-Package-Repo-For-RabbitMQ-K8s-Operators
+Script to generate OLM (Operator-LifeCycle-Manager) Bundles for RabbitMQ Kubernetes operators </br>
 
 Starting from our operator manifests:
 
@@ -15,8 +15,9 @@ That can be published to operatorhub/openshift marketplace
 
 This script is mainly used by our operator pipelines:
 
-[operator-pipeline](https://github.com/rabbitmq/cluster-operator/blob/main/.github/workflows/testing_and_publishing_OLM_bundle.yml)
+[operator-pipeline](https://github.com/rabbitmq/cluster-operator/blob/main/.github/workflows/testing_and_publishing_OLM_bundle.yml)  </br>
 
+But it can be used for testing/extension ecc...
 
 Basic Guidelines followed: </br>
 
