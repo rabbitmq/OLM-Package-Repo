@@ -39,7 +39,7 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
 # set the replace version in the manifest
 def _set_replace_version(version, replaces):
     now = datetime.now()
-    createdAt = now.strftime("yyyy-MM-dd")
+    createdAt = now.strftime("%m/%d/%Y")
 
     ytt_command_add_version = (
         "ytt -f ./rabbitmq_olm_package_repo/generators/cluster_operator_generators/cluster-service-version-generator.yml --data-value-yaml name=rabbitmq-cluster-operator.v"
@@ -51,7 +51,7 @@ def _set_replace_version(version, replaces):
         + " --data-value-yaml replaces="
         + replaces
         + " --data-value-yaml createdAt="
-        + createdAt
+        + str(createdAt)
         + "> ./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator-service-version-generator.yaml"
     )
     os.system(ytt_command_add_version)
