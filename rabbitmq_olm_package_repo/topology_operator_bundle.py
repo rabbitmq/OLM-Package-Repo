@@ -39,7 +39,7 @@ def create_messaging_topology_operator_bundle(
 def _set_replace_version(version, replaces):
 
     now = datetime.now()
-    createdAt = now.strftime("yyyy-MM-dd")
+    createdAt = now.strftime("%m/%d/%Y")
 
     # Apply version to the service-version generator
     ytt_command_add_version = (
@@ -52,7 +52,7 @@ def _set_replace_version(version, replaces):
         + " --data-value-yaml replaces="
         + replaces
         + " --data-value-yaml createdAt="
-        + createdAt
+        + str(createdAt)
         + "> ./rabbitmq_olm_package_repo/tmpmanifests/topology-operator-service-version-generator.yaml"
     )
     os.system(ytt_command_add_version)
