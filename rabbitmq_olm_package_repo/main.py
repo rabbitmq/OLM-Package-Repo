@@ -39,7 +39,12 @@ def main():
         cluster_operator_release_file = (
             "./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator.yaml"
         )
-        os.system("cp " + operator_release_file + " " + cluster_operator_release_file)
+        os.system(
+            "ytt -f "
+            + operator_release_file
+            + " -f ./rabbitmq_olm_package_repo/generators/cluster_operator_generators/cluster-operator-namespace-scope-overlay.yml > "
+            + cluster_operator_release_file
+        )
         os.system('echo "\n---" >> ' + cluster_operator_release_file)
         create_cluster_operator_bundle(
             cluster_operator_release_file, version, output_directory
@@ -51,11 +56,12 @@ def main():
             "./rabbitmq_olm_package_repo/tmpmanifests/cluster-operator.yaml"
         )
         os.system(
-            "cp "
+            "ytt -f "
             + operator_release_file
-            + " "
+            + " -f ./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/topology-operator-namespace-scope-overlay.yml > "
             + messaging_topology_operator_release_file
         )
+
         os.system('echo "\n---" >> ' + messaging_topology_operator_release_file)
         create_messaging_topology_operator_bundle(
             messaging_topology_operator_release_file, version, output_directory
