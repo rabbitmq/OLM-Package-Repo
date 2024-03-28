@@ -73,8 +73,8 @@ def main():
         )
 
     logger.info("Clean up")
-    os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
-    os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
+    # os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
+    # os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
 
 
 # start main function

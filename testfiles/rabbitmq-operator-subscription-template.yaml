@@ -1,13 +1,12 @@
-#@ load("@ytt:data", "data")
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: rabbitmq-operator
-  namespace: rabbitmq-system-olm 
+  namespace: rabbitmq-system
 spec:
   channel: stable 
   installPlanApproval: Automatic
   name: rabbitmq-cluster-operator
   source: rabbitmq-dev-catalog
   sourceNamespace: openshift-marketplace 
-  startingCSV: #@ data.values.csv
+  startingCSV: rabbitmq-cluster-operator.v2.7.0

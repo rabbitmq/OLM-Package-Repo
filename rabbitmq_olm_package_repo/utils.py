@@ -10,7 +10,7 @@ class OperatorType(Enum):
 
 # This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
 def create_overlay(
-    release_file, kind, firstString, endString, file_generator, file_output
+    release_file, kind, firstString, endString, file_generator, file_output, filters
 ):
 
     found = False
@@ -20,8 +20,29 @@ def create_overlay(
 
         filestring = ""
 
+        security_verbs = ["get", "list", "watch", "update", "create", "delete", "patch", "watch"]
+        special_cases = False
         for line in myfile:
             if parsing == True:
+               
+                if "pods/exec"  in line or "endpoints" in line or "finalizers" in line or "rabbitmqclusters" in line or "services" in line:
+                    special_cases = True
+
+                line_filtered = False
+                for filter in filters:
+                    if filter in line:
+                        line_filtered = True
+
+                if line_filtered is True:
+                    if special_cases is False:
+                        continue
+                    else:
+                        special_cases = False
+
+                if special_cases is True:
+                    for security_verb in security_verbs:
+                        if security_verb in line:
+                            special_cases = False
 
                 if line.find(endString) >= 0:
                     if found == True:
@@ -49,6 +70,16 @@ def replace_rabbitmq_cluster_operator_version_overlay(file_input, pattern1, patt
     with fileinput.FileInput(file_input, inplace=True, backup=".bak") as file:
         for line in file:
             print(line.replace(pattern1, pattern2), end="")
+
+
+# This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
+def replace_rabbitmq_security_overlay(file_input, securities):
+
+    with fileinput.FileInput(file_input, inplace=True, backup=".bak") as file:
+        for line in file:
+            for security in securities:
+                if security in line:
+                    print(line.replace(pattern1, ""), end="")
 
 
 def replace_rabbitmq_cluster_operator_image(file_input, pattern1, pattern2):
