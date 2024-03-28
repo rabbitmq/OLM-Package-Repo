@@ -36,7 +36,7 @@ It can be used in this way: </br>
 
 ```
 poetry run generate_bundle ./rabbitmq_olm_package_repo/manifests_crds/cluster-operator.yaml 2.7.0 ./OLM_generated_bundle_example/rabbitmq-cluster-operator
-poetry run generate_bundle ./rabbitmq_olm_package_repo/manifests_crds_messaging_topology_operator/messaging-topology-operator-with-certmanager.yaml 1.14.0 ./../OLM_generated_bundle_example/rabbitmq-messaging-topology-operator
+poetry run generate_bundle ./rabbitmq_olm_package_repo/manifests_crds_messaging_topology_operator/messaging-topology-operator-with-certmanager.yaml 1.14.0 ./OLM_generated_bundle_example/rabbitmq-messaging-topology-operator
 ```
 
 First parameter is the operator release file like: 
