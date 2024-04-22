@@ -12,7 +12,6 @@ from .utils import OperatorType, get_operator_name
 
 
 def main():
-
     logging.basicConfig()
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)

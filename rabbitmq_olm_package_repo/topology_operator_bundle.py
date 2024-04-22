@@ -15,7 +15,6 @@ from .utils import (
 def create_messaging_topology_operator_bundle(
     operator_release_file, version, output_directory
 ):
-
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
@@ -37,7 +36,6 @@ def create_messaging_topology_operator_bundle(
 
 
 def _set_replace_version(version, replaces):
-
     now = datetime.now()
     createdAt = now.strftime("%m/%d/%Y")
 
@@ -59,7 +57,6 @@ def _set_replace_version(version, replaces):
 
 
 def _create_and_finalize_overlays(version, operator_release_file):
-
     create_overlay(
         operator_release_file,
         "kind: Role",
@@ -136,7 +133,6 @@ def _create_and_finalize_overlays(version, operator_release_file):
 
 
 def _create_olm_bundle(version, output_directory):
-
     rabbitmq_cluster_operator_dir = output_directory + "/" + version
     rabbitmq_cluster_operator_dir_manifests = (
         rabbitmq_cluster_operator_dir + "/manifests"

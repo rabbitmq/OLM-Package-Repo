@@ -16,7 +16,6 @@ from .utils import validate_bundle_struct
 
 
 def test_cluster_operator_bundle():
-
     topology_operator_release_file = "./rabbitmq_olm_package_repo/manifests_crds_messaging_topology_operator/messaging-topology-operator-with-certmanager.yaml"
     version = "1.13.0"
     output_directory = "./tests/test-bundle"
@@ -73,7 +72,6 @@ def test_cluster_operator_bundle():
 
 # validate the bundle with operator-sdk
 def validate_all_bundle(output_directory):
-
     os.system(
         "operator-sdk bundle validate "
         + output_directory
@@ -87,7 +85,6 @@ def validate_all_bundle(output_directory):
 
 # Check at least that the crd has been generated and two main fields (kind and metadata->name are created)
 def validate_operator_crds(output_directory, crds_file_names, crds_names):
-
     output_directory = output_directory + "/manifests"
 
     directory = os.fsencode(output_directory)
@@ -114,7 +111,6 @@ def validate_operator_crds(output_directory, crds_file_names, crds_names):
 
 # Check at least that the crd has been generated and two main fields (kind and metadata->name are created)
 def validate_operator_manifest(output_directory, version):
-
     # check if crd is present in the bundle
     assert os.path.isfile(
         output_directory + "/manifests/rabbitmq.clusterserviceversion.yaml"

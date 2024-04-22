@@ -12,20 +12,32 @@ class OperatorType(Enum):
 def create_overlay(
     release_file, kind, firstString, endString, file_generator, file_output, filters
 ):
-
     found = False
     parsing = False
 
     with open(release_file, "r") as myfile:
-
         filestring = ""
 
-        security_verbs = ["get", "list", "watch", "update", "create", "delete", "patch", "watch"]
+        security_verbs = [
+            "get",
+            "list",
+            "watch",
+            "update",
+            "create",
+            "delete",
+            "patch",
+            "watch",
+        ]
         special_cases = False
         for line in myfile:
             if parsing == True:
-               
-                if "pods/exec"  in line or "endpoints" in line or "finalizers" in line or "rabbitmqclusters" in line or "services" in line:
+                if (
+                    "pods/exec" in line
+                    or "endpoints" in line
+                    or "finalizers" in line
+                    or "rabbitmqclusters" in line
+                    or "services" in line
+                ):
                     special_cases = True
 
                 line_filtered = False
@@ -66,7 +78,6 @@ def create_overlay(
 
 # This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
 def replace_rabbitmq_cluster_operator_version_overlay(file_input, pattern1, pattern2):
-
     with fileinput.FileInput(file_input, inplace=True, backup=".bak") as file:
         for line in file:
             print(line.replace(pattern1, pattern2), end="")
@@ -74,7 +85,6 @@ def replace_rabbitmq_cluster_operator_version_overlay(file_input, pattern1, patt
 
 # This function complete an overlay generator file (in ./generators) for Role, Clusterrole and Deployment
 def replace_rabbitmq_security_overlay(file_input, securities):
-
     with fileinput.FileInput(file_input, inplace=True, backup=".bak") as file:
         for line in file:
             for security in securities:
@@ -83,14 +93,12 @@ def replace_rabbitmq_security_overlay(file_input, securities):
 
 
 def replace_rabbitmq_cluster_operator_image(file_input, pattern1, pattern2):
-
     with fileinput.FileInput(file_input, inplace=True, backup=".bak") as file:
         for line in file:
             print(line.replace(pattern1, pattern2), end="")
 
 
 def replace_if_rabbitmq_webhook(file_input):
-
     with fileinput.FileInput(file_input, inplace=True, backup=".bak") as file:
         for line in file:
             print(
@@ -102,7 +110,6 @@ def replace_if_rabbitmq_webhook(file_input):
 
 
 def get_operator_name(file_input):
-
     with open(file_input) as f:
         if "rabbitmqoperator/messaging-topology-operator" in f.read():
             return OperatorType.MESSAGING_TOPOLOGY_OPERATOR
@@ -111,7 +118,6 @@ def get_operator_name(file_input):
 
 
 def get_operator_last_tag(operator):
-
     last_tag_file = "./last_tag_file"
     os.system(
         "curl https://api.github.com/repos/rabbitmq/"
