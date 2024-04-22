@@ -8,7 +8,7 @@ spec:
   displayName: rabbitmq
   publisher: rabbitmq
   sourceType: grpc
-  image: docker.io/danielepalaia/rabbitmq-for-kubernetes-olm-topology-operator-index:0.0.0
+  image: #@ data.values.image
   updateStrategy:
     registryPoll:
       interval: 1m
