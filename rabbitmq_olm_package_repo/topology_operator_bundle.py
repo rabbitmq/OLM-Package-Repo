@@ -15,7 +15,6 @@ from .utils import (
 def create_messaging_topology_operator_bundle(
     operator_release_file, version, output_directory
 ):
-
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
@@ -37,7 +36,6 @@ def create_messaging_topology_operator_bundle(
 
 
 def _set_replace_version(version, replaces):
-
     now = datetime.now()
     createdAt = now.strftime("%m/%d/%Y")
 
@@ -59,15 +57,27 @@ def _set_replace_version(version, replaces):
 
 
 def _create_and_finalize_overlays(version, operator_release_file):
-
     create_overlay(
         operator_release_file,
         "kind: Role",
         "rules:",
         "---",
         "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-permission-generator.yaml",
-        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml",
+        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permissiontmp.yaml",
+        [],
     )
+
+    filters = ["get", "list", "watch"]
+    create_overlay(
+        operator_release_file,
+        "kind: ClusterRole",
+        "rules:",
+        "---",
+        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permissiontmp.yaml",
+        "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-permission.yaml",
+        filters,
+    )
+    filters = ["create", "update", "delete", "patch"]
     create_overlay(
         operator_release_file,
         "kind: ClusterRole",
@@ -75,6 +85,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "---",
         "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-cluster-permission-generator.yaml",
         "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-cluster-permission.yaml",
+        filters,
     )
     create_overlay(
         operator_release_file,
@@ -83,6 +94,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "---",
         "./rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/overlay-deployment-generator.yaml",
         "./rabbitmq_olm_package_repo/overlays/topology-operator-overlay-deployment.yaml",
+        [],
     )
 
     replace_rabbitmq_cluster_operator_version_overlay(
@@ -121,7 +133,6 @@ def _create_and_finalize_overlays(version, operator_release_file):
 
 
 def _create_olm_bundle(version, output_directory):
-
     rabbitmq_cluster_operator_dir = output_directory + "/" + version
     rabbitmq_cluster_operator_dir_manifests = (
         rabbitmq_cluster_operator_dir + "/manifests"

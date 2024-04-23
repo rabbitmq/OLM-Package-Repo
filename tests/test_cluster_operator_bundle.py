@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 
 
 def test_cluster_operator_bundle():
-
     operator_release_file = (
         "./rabbitmq_olm_package_repo/manifests_crds/cluster-operator.yaml"
     )
@@ -51,7 +50,6 @@ def test_cluster_operator_bundle():
 
 # validate the bundle with operator-sdk
 def validate_all_bundle(output_directory):
-
     os.system(
         "operator-sdk bundle validate "
         + output_directory
@@ -65,7 +63,6 @@ def validate_all_bundle(output_directory):
 
 # Check at least that the crd has been generated and two main fields (kind and metadata->name are created)
 def validate_operator_crd(output_directory):
-
     # check if crd is present in the bundle
     assert os.path.isfile(output_directory + "/manifests/crds.yaml")
 
@@ -80,7 +77,6 @@ def validate_operator_crd(output_directory):
 
 # Check at least that the crd has been generated and two main fields (kind and metadata->name are created)
 def validate_operator_manifest(output_directory, version):
-
     # check if crd is present in the bundle
     assert os.path.isfile(
         output_directory + "/manifests/rabbitmq.clusterserviceversion.yaml"

@@ -8,11 +8,11 @@ from .utils import (
     get_operator_last_tag,
     replace_rabbitmq_cluster_operator_image,
     replace_rabbitmq_cluster_operator_version_overlay,
+    replace_rabbitmq_security_overlay,
 )
 
 
 def create_cluster_operator_bundle(operator_release_file, version, output_directory):
-
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
@@ -59,7 +59,6 @@ def _set_replace_version(version, replaces):
 
 # creates overlay for permission, and cluster-operator-permission
 def _create_and_finalize_overlays(version, operator_release_file):
-
     # Finalize the overlay
     create_overlay(
         operator_release_file,
@@ -67,8 +66,20 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "rules:",
         "---",
         "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/overlay-permission-generator.yaml",
-        "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-permission.yaml",
+        "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-permissiontmp.yaml",
+        [],
     )
+    filters = ["get", "list", "watch"]
+    create_overlay(
+        operator_release_file,
+        "kind: ClusterRole",
+        "rules:",
+        "---",
+        "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-permissiontmp.yaml",
+        "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-permission.yaml",
+        filters,
+    )
+    filters = ["create", "update", "delete", "patch"]
     create_overlay(
         operator_release_file,
         "kind: ClusterRole",
@@ -76,7 +87,9 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "---",
         "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/overlay-cluster-permission-generator.yaml",
         "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-cluster-permission.yaml",
+        filters,
     )
+
     create_overlay(
         operator_release_file,
         "kind: Deployment",
@@ -84,6 +97,7 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "---",
         "./rabbitmq_olm_package_repo/generators/cluster_operator_generators/overlay-deployment-generator.yaml",
         "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-deployment.yaml",
+        [],
     )
 
     replace_rabbitmq_cluster_operator_version_overlay(
@@ -91,11 +105,13 @@ def _create_and_finalize_overlays(version, operator_release_file):
         "rabbitmq-cluster-operator.v*",
         "rabbitmq-cluster-operator.v" + version,
     )
+
     replace_rabbitmq_cluster_operator_version_overlay(
         "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-cluster-permission.yaml",
         "rabbitmq-cluster-operator.v*",
         "rabbitmq-cluster-operator.v" + version,
     )
+
     replace_rabbitmq_cluster_operator_version_overlay(
         "./rabbitmq_olm_package_repo/overlays/cluster-operator-overlay-deployment.yaml",
         "rabbitmq-cluster-operator.v*",

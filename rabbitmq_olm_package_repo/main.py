@@ -12,7 +12,6 @@ from .utils import OperatorType, get_operator_name
 
 
 def main():
-
     logging.basicConfig()
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
@@ -73,8 +72,8 @@ def main():
         )
 
     logger.info("Clean up")
-    os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
-    os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
+    # os.system("rm -fR ./rabbitmq_olm_package_repo/overlays")
+    # os.system("rm -fR ./rabbitmq_olm_package_repo/tmpmanifests")
 
 
 # start main function
