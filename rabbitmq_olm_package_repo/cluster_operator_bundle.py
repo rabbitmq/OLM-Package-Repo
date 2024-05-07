@@ -12,7 +12,6 @@ from .utils import (
 
 
 def create_cluster_operator_bundle(operator_release_file, version, output_directory):
-
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
@@ -22,12 +21,12 @@ def create_cluster_operator_bundle(operator_release_file, version, output_direct
     logger.info("Replacing replace version to manifest")
     # work around needed for our github action because we don't have a previous version to replace
     # opm is complaining in this case.
-    if version == "0.0.0":
-        replaces = " "
-        _set_replace_version(version, replaces)
+    # if version == "0.0.0":
+    replaces = " "
+    _set_replace_version(version, replaces)
 
-    else:
-        _set_replace_version(version, replaces)
+    # else:
+    #    _set_replace_version(version, replaces)
 
     logger.info("Creating and finalizing ytt overlays")
     _create_and_finalize_overlays(version, operator_release_file)
@@ -59,7 +58,6 @@ def _set_replace_version(version, replaces):
 
 # creates overlay for permission, and cluster-operator-permission
 def _create_and_finalize_overlays(version, operator_release_file):
-
     # Finalize the overlay
     create_overlay(
         operator_release_file,

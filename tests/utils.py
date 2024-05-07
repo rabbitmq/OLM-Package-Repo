@@ -2,7 +2,6 @@ import os
 
 
 def validate_bundle_struct(output_directory):
-
     validate_folder_structure(output_directory)
 
 
