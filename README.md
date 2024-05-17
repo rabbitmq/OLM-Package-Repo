@@ -79,6 +79,7 @@ Interesting section are about (Installation and Upgrade):
 https://docs.openshift.com/container-platform/4.15/operators/admin/olm-upgrading-operators.html
 
 OG and Subscriptions:
+
 https://docs.openshift.com/container-platform/4.15/operators/understanding/olm/olm-understanding-operatorgroups.html
 
 https://olm.operatorframework.io/docs/advanced-tasks/operator-scoping-with-operatorgroups/
