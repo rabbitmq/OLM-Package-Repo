@@ -80,7 +80,9 @@ https://docs.openshift.com/container-platform/4.15/operators/admin/olm-upgrading
 
 OG and Subscriptions:
 https://docs.openshift.com/container-platform/4.15/operators/understanding/olm/olm-understanding-operatorgroups.html
+
 https://olm.operatorframework.io/docs/advanced-tasks/operator-scoping-with-operatorgroups/
+
 https://olm.operatorframework.io/docs/concepts/crds/subscription/
 
 There are a few scenarios like (upgrade, certificate management, volume management) that may be different when using OLM.
