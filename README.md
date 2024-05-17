@@ -68,6 +68,31 @@ In case a new controller needs to be added you need to manually add it in the ge
 In case the controller uses a webhook (like in case of the messaging topology operator), also the webhook needs to be added in: </br>
 [web-hook mapping](https://github.com/rabbitmq/OLM-Package-Repo/blob/general_clean_up/rabbitmq_olm_package_repo/generators/messaging_topology_operator_generators/webhooks-mapping.yaml)
 
+## How using OLM is different from the standard installation
+
+When using the OLM packaging to install and use the two RabbitMQ Kubernetes Operators: (RabbitMQ cluster operator and RabbitMQ Messaging Topology Operator) you need to follow the OLM general documentation:
+
+https://olm.operatorframework.io/docs/
+
+Interesting section are about (Installation and Upgrade):
+
+https://docs.openshift.com/container-platform/4.15/operators/admin/olm-upgrading-operators.html
+
+OG and Subscriptions:
+https://docs.openshift.com/container-platform/4.15/operators/understanding/olm/olm-understanding-operatorgroups.html
+https://olm.operatorframework.io/docs/advanced-tasks/operator-scoping-with-operatorgroups/
+https://olm.operatorframework.io/docs/concepts/crds/subscription/
+
+There are a few scenarios like (upgrade, certificate management, volume management) that may be different when using OLM.
+
+In particular a few scenarios that diverge from the standard RabbitMQ operator documentation are:
+
+* In the Messaging Topology Operator there is no need to use cert-manager as OLM already deploy and rotate certificates for the webhooks as described here: https://olm.operatorframework.io/docs/advanced-tasks/adding-admission-and-conversion-webhooks/
+  Also it is not possible (at the moment) for a user to provide their own certificates (as described as limitation in the same page). See also https://github.com/rabbitmq/OLM-Package-Repo/issues/21
+* There are scenarios that requires a modifications on the Operator Deployment (for example mounting volumes or adding environment variables). This can't be done directly in OLM because the CSV will automatically revert these modifications.
+  These scenarios can be implemented by templating the Subscription as described here: https://github.com/operator-framework/operator-lifecycle-manager/blob/master/doc/design/subscription-config.md#configuring-operators-deployed-by-olm
+  See also https://github.com/rabbitmq/OLM-Package-Repo/issues/11
+
 ## Run tests
 
 You can run test with:
