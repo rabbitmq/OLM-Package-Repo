@@ -57,6 +57,9 @@ spec:
   keywords:
   - rabbitmq
   - messaging
+  maintainers:
+  - name: VMware Tanzu
+    email: rabbitmq-users@googlegroups.com 
   provider:
     name: 'VMware Tanzu'
   labels: {}
