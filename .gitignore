@@ -15,3 +15,6 @@ __pycache__/
 local*
 .githooks/
 .venv/
+
+# Some files may end up here in local runs
+rabbitmq_olm_package_repo/manifests_crds/*
