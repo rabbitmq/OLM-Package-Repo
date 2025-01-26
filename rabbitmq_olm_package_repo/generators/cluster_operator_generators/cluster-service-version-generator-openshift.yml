@@ -24,8 +24,6 @@ spec:
     See: https://www.rabbitmq.com/kubernetes/operator/operator-overview.html for detailed informations
   maturity: mature
   version: #@ data.values.version
-  replaces: #@ data.values.replaces
-  skips: []
   support: Community based
   keywords:
   - rabbitmq

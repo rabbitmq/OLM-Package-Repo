@@ -52,7 +52,6 @@ spec:
     RabbitMQ server.
   maturity: stable
   version: #@ data.values.version
-  replaces: #@ data.values.replaces
   support: Community based
   keywords:
   - rabbitmq
