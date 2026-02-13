@@ -1,3 +1,12 @@
+# Notice
+
+**This repo is outdated**. This functionality was moved to the operators repositories. See [1][2]
+
+[1] https://github.com/rabbitmq/cluster-operator/tree/main/olm <br>
+[2] https://github.com/rabbitmq/messaging-topology-operator/tree/main/olm
+
+-----
+
 # OLM-Package-Repo-For-RabbitMQ-K8s-Operators
 Script to generate OLM (Operator-LifeCycle-Manager) Bundles for RabbitMQ Kubernetes operators </br>
 
